@@ -1,1 +1,112 @@
 # Sistema_Gestion_Negocio_ASP.NET_MVC
+
+
+
+Aplicación web desarrollada con ASP.NET Core MVC para gestionar ventas, productos y usuarios de distintos negocios. 
+Diseñada para ser utilizada por múltiples empresas con un único sistema, mediante roles y permisos.
+
+---
+## Indice
+
+- [Tecnologías utilizadas](#tecnologías-utilizadas)
+- [Arquitectura](#arquitectura)
+- [Roles de usuario](#roles-de-usuario)
+- [Funcionalidades principales](#funcionalidades-principales)
+- [Base de datos](#base-de-datos)
+- [Notas de desarrollo](#notas-de-desarrollo)
+- [En desarrollo](#en-desarrollo)
+- [Autor](#autor)
+
+
+
+
+
+
+## Tecnologías utilizadas
+
+- ASP.NET Core MVC
+- Entity Framework Core
+- SQL Server
+- C#
+- Razor Pages
+- Bootstrap 
+- (Futuro) API REST para manejo dinámico del DOM
+
+---
+
+## Arquitectura
+
+- Patrón MVC (Modelo-Vista-Controlador)
+- Autenticación y autorización con roles
+- Relación multi-negocio (cada negocio tiene sus usuarios, productos y ventas)
+- Generación de PDFs y exportación de datos a XLS
+
+---
+
+## Roles de usuario
+
+
+|		Rol					|						Descripción 
+|---------------------------|-------------------------------------------------------------------------|
+| Administrador General		| Acceso completo a todo el sistema. Solo se crea desde la base de datos. |
+|---------------------------|-------------------------------------------------------------------------|
+| Administrador de Negocio	| Dueño del negocio. Gestiona productos, ventas, empleados, etc.		  |
+|---------------------------|-------------------------------------------------------------------------|
+| Empleado					| Acceso limitado. Puede registrar ventas, ver stock, etc.				  |
+|---------------------------|-------------------------------------------------------------------------|
+
+
+---
+
+## Funcionalidades principales
+
+1. **Registrar nueva venta**
+2. **Gestión de productos/stock**
+3. **Historial de ventas**
+   - Filtro por fechas
+   - Detalle de venta (PDF)
+   - Exportación a XLS
+4. **(Próximamente) Estadísticas con gráficos**
+
+---
+
+## Base de datos
+
+- SQL Server
+- Relaciones:
+  - Un `Negocio` tiene muchos `Usuarios`, cada `Usuario` pertenece a un solo `Negocio`  
+  - Un `Negocio` tiene muchos `Productos`, cada `Productos` pertenece a un solo `Negocio`
+  - Las `Ventas` están relacionadas muchos-a-muchos con `Productos` mediante `DetalleVenta`
+
+---
+
+## Notas de desarrollo
+
+- Se usa Guid para entidades principales y NanoId para otras tablas como Venta y Producto
+
+- Los roles están definidos mediante un enum
+- Autenticación por correo y contraseña
+- El campo Confirmado arranca en false y se activa vía token de email
+- Las credenciales del correo se definen por dotnet user-secret
+- Rol, al ser un enum, se convierte con fluent api en el context para que EF lo tome como int
+
+## En dasarrollo
+
+- [ ] Login, confirmacion por correo y restablecer contraseña por correo.
+- [ ] Autorizacion mediante roles del usuario, utilizando Cokies.
+- [ ] Form para que un cliente pueda completar los datos de su negocio (se envia por mail). --> No del todo seguro que asi sea.
+- [ ] CRUD para que usuarios administradores de negocios registren usuarios empleados.
+- [ ] Mostrar productos en seccion Stock.
+- [ ] CRUD para productos (solo accesible para usuarios administradores de negocios).
+- [ ] Mostrar lista de ventas, posibilidad de imprimir el detalle de una venta (tipo facutra).
+- [ ] Mostrar lista de ventas especificando entre que fechas mostrar la lista, por defecto debe estar en el dia actual,pero se puede
+cambiar las fechas con un calendario.
+- [ ] Descargar en formato xls el la tabla con las ventas.
+- [ ] API REST para actualizar el DOM sin recargar la página
+- [ ] Estadísticas con gráficos
+
+## Autor
+
+- Martin Lucarelli 
+- Proyecto educativo
+

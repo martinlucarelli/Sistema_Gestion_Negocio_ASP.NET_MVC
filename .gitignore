@@ -361,3 +361,9 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Evitar que los user secrets sean subidos al repositorio
+
+.vscode/
+.vs/
+secrets/

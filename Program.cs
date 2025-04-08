@@ -1,7 +1,13 @@
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Conexion con la base de datos
+builder.Services.AddSqlServer<NegocioContext>(builder.Configuration.GetConnectionString("cnBaseDeDatos"));
+
 
 var app = builder.Build();
 
