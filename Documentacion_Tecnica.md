@@ -3,27 +3,27 @@
 
 Este documento contiene una descripción general de los componentes técnicos del sistema.
 
----
+## Indice
 
-## Controladores
+1.[LoginController](#logincontroller)
+	-[Login(UsuarioViewModel user)](#login(usuarioviewmodel-user))
+2.[ProductoController](#productocontroller)
+	-[AgregarProducto()](#agregarproducto())
 
-- **UsuarioController**  
-  Encargado del login, registro, confirmación por correo y gestión de usuarios.
-
-- **ProductoController**  
-  CRUD de productos, visualización de stock.
-
-- **VentaController**  
-  Registro y listado de ventas, generación de PDFs y exportación a XLS.
 
 ---
 
-## Vistas principales
+## LoginController
 
-- **Login.cshtml**: Inicio de sesión.
-- **RegistroNegocio.cshtml**: Formulario para registrar datos del negocio.
-- **Stock.cshtml**: Sección para ver los productos disponibles.
-- **Ventas.cshtml**: Listado de ventas y detalles.
+## Login(UsuarioViewModel user)
+
+- Explicacion de la funcion.
+---
+
+## ProductoController
+
+## AgregarProducto()
+-	Explicacion de la funcion.
 
 ---
 

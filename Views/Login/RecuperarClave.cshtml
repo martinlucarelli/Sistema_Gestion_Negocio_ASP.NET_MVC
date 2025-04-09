@@ -1,0 +1,19 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.RestablecerClaveViewModel
+@{
+    ViewData["Title"] = "RecuperarClave";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h2>Restablecer Contraseña</h2>
+
+
+<form asp-action="RecuperarClave" method="post">
+    <div class="form-group">
+        <label for="Correo">Correo Electrónico</label>
+        <input asp-for="Correo" class="form-control" id="Correo" />
+        <span asp-validation-for="Correo" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar enlace para restablecer contraseña</button>
+</form>
+

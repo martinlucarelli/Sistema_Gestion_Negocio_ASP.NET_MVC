@@ -13,6 +13,9 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 - [Roles de usuario](#roles-de-usuario)
 - [Funcionalidades principales](#funcionalidades-principales)
 - [Base de datos](#base-de-datos)
+- [Controllers](#controllers)
+- [Services](#cervices)
+- [Vistas Principales](#vistas-principales)
 - [Notas de desarrollo](#notas-de-desarrollo)
 - [En desarrollo](#en-desarrollo)
 - [Autor](#autor)
@@ -49,11 +52,11 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 |		Rol					|						Descripción 
 |---------------------------|-------------------------------------------------------------------------|
 | Administrador General		| Acceso completo a todo el sistema. Solo se crea desde la base de datos. |
-|---------------------------|-------------------------------------------------------------------------|
+|                           |                                                                         |
 | Administrador de Negocio	| Dueño del negocio. Gestiona productos, ventas, empleados, etc.		  |
-|---------------------------|-------------------------------------------------------------------------|
+|                           |                                                                         |
 | Empleado					| Acceso limitado. Puede registrar ventas, ver stock, etc.				  |
-|---------------------------|-------------------------------------------------------------------------|
+|                           |                                                                         |
 
 
 ---
@@ -80,6 +83,26 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ---
 
+## Controllers
+- **LoginController**  
+	Encargado del inicio de sesion y restablecer contraseña. Tambien tiene una funcion que se encarga de cifrar las contraseñas.
+
+---
+
+## Services
+-**EmailService**
+	Tiene la funcion que se encarga de enviar los mail para recuperar contraseña o registrar usuario.
+
+---
+
+## Vistas principales
+
+- **Login.cshtml**: Inicio de sesión.
+- **RecuperarClave.cshtml: Correo donde se va enviar el cambio de contraseña
+- **RestablecerClave.cshtml: Formulario para cambiar la contraseña.
+
+---
+
 ## Notas de desarrollo
 
 - Se usa Guid para entidades principales y NanoId para otras tablas como Venta y Producto
@@ -87,8 +110,10 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 - Los roles están definidos mediante un enum
 - Autenticación por correo y contraseña
 - El campo Confirmado arranca en false y se activa vía token de email
-- Las credenciales del correo se definen por dotnet user-secret
+- Las credenciales del correo se definen por dotnet user-secret para que no haya datos sensibles a la vista
 - Rol, al ser un enum, se convierte con fluent api en el context para que EF lo tome como int
+
+
 
 ## En dasarrollo
 

@@ -1,4 +1,6 @@
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Configuration;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +9,12 @@ builder.Services.AddControllersWithViews();
 
 //Conexion con la base de datos
 builder.Services.AddSqlServer<NegocioContext>(builder.Configuration.GetConnectionString("cnBaseDeDatos"));
+
+//EmailSettings
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
+
+//Inyectar servicio de mail
+builder.Services.AddScoped<EmailService>();
 
 
 var app = builder.Build();
@@ -28,6 +36,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();
