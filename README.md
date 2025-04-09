@@ -117,7 +117,7 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## En dasarrollo
 
-- [ ] Login, confirmacion por correo y restablecer contraseña por correo.
+- [X] Login, confirmacion por correo y restablecer contraseña por correo.
 - [ ] Autorizacion mediante roles del usuario, utilizando Cokies.
 - [ ] Form para que un cliente pueda completar los datos de su negocio (se envia por mail). --> No del todo seguro que asi sea.
 - [ ] CRUD para que usuarios administradores de negocios registren usuarios empleados.
