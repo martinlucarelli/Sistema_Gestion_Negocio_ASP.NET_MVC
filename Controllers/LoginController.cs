@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Models;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -32,12 +35,11 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UsuarioViewModel user)
+        public async Task<IActionResult> Login(UsuarioViewModel user)
         {
           
             var usuarioIngresado = context.Usuarios.FirstOrDefault(u => u.Correo == user.correo);
           
-
             if(usuarioIngresado==null || usuarioIngresado.Clave != ConvertirSha256(user.clave)) 
             {
                 ModelState.AddModelError("correo", "Correo o contraseña incorrectas, intente de nuevo");
@@ -46,6 +48,19 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             }
             else
             {
+                //Al momento de iniciar sesion creamos las claims. Una claim es un dato que se guarda en la Cookie para identificar al usuario.
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name,usuarioIngresado.Nombre),
+                    new Claim("Correo",usuarioIngresado.Correo),
+                    new Claim(ClaimTypes.Role,usuarioIngresado.Rol.ToString()),
+
+                };
+
+                var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));  
+
                 return RedirectToAction("Index","Home");
             }
         }
@@ -125,6 +140,14 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         public IActionResult CorreoEnviadoCambiarClave()
         {
             return View();
+        }
+
+        public async Task<IActionResult> CerrarSesion()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            return RedirectToAction("Login", "Login");
+
         }
 
 

@@ -112,13 +112,15 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 - El campo Confirmado arranca en false y se activa vía token de email
 - Las credenciales del correo se definen por dotnet user-secret para que no haya datos sensibles a la vista
 - Rol, al ser un enum, se convierte con fluent api en el context para que EF lo tome como int
+- Si el usuario esta 3 horas inactivo se le cierra la sesion automaticamente.
+- Se utilizan Claims para guardar informacion del usuario en una Cookie.
 
 
 
 ## En dasarrollo
 
 - [X] Login, confirmacion por correo y restablecer contraseña por correo.
-- [ ] Autorizacion mediante roles del usuario, utilizando Cokies.
+- [X] Autorizacion mediante roles del usuario, utilizando Cokies.
 - [ ] Form para que un cliente pueda completar los datos de su negocio (se envia por mail). --> No del todo seguro que asi sea.
 - [ ] CRUD para que usuarios administradores de negocios registren usuarios empleados.
 - [ ] Mostrar productos en seccion Stock.

@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Models;
 using System.Diagnostics;
 
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -19,6 +21,23 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Empleado")]
+        public IActionResult EpleadoVista_Prueba()
+        {
+            return View();
+        }
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
+        public IActionResult AdminNegocioVista_Prueba()
+        {
+            return View();
+        }
+
+        [Authorize(Roles = "AdministradorGeneral")]
+        public IActionResult AdminGeneralVista_Prueba()
         {
             return View();
         }

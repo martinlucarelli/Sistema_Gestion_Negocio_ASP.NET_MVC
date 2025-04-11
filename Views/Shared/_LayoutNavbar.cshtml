@@ -15,10 +15,22 @@
         <nav class="sidebar">
             <h2 class="logo">Mi Panel</h2>
             <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+            @if (User.IsInRole("AdministradorGeneral"))
+            {
+            <a asp-area="" asp-controller="Home" asp-action="AdminGeneralVista_Prueba">ADMIN GRAL</a>
+            }
+            @if (User.IsInRole("AdministradorGeneral") || User.IsInRole("AdministradorNegocio"))
+            {
+                <a asp-area="" asp-controller="Home" asp-action="AdminNegocioVista_Prueba">ADMIN NEGOCIO</a>
+            }
+            <a asp-area="" asp-controller="Home" asp-action="EpleadoVista_Prueba">EMPLEADO</a>
+            
+            
+            
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Productos</a>
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Ventas</a>
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Estadísticas</a>
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Cerrar sesión</a>
+            <a asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar sesión</a>
         </nav>
 
         <!-- Contenido principal y footer -->
