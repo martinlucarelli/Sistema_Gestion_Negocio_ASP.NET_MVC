@@ -6,10 +6,10 @@ Este documento contiene una descripción general de los componentes técnicos de
 ## Indice
 
 1.[LoginController](#logincontroller)
-	-[Login(UsuarioViewModel user)](#login(usuarioviewmodel-user))
-    -[RecuperarClave(string correo)](#recuperarclave(string-correo))
-    -[RestablecerClave(string token)](#restablecerclave(string-token))
-    -[CerrarSesion()](#cerrarsesion())
+   - [Login(UsuarioViewModel user)](#loginusuarioviewmodel-user)
+   - [RecuperarClave(string correo)](#recuperarclavestring-correo)
+   - [RestablecerClave(string token)](#restablecerclavestring-token)
+   - [CerrarSesion()](#cerrarsesion)
 2.[ProductoController](#productocontroller)
 	-[AgregarProducto()](#agregarproducto())
 
@@ -60,10 +60,12 @@ Este documento contiene una descripción general de los componentes técnicos de
         }
 ```
 
+---
 
 - `var usuarioIngresado = context.Usuarios.FirstOrDefault(u => u.Correo == user.correo);`
 
 	Buscar en la base de de datos si hay un registro con el mismo correo y lo guarda en `usuarioIngresado`.
+---
 
 ```csharp
                   var claims = new List<Claim>
@@ -78,17 +80,19 @@ Este documento contiene una descripción general de los componentes técnicos de
    Creamos una lista de Claims. Los claims sirven para guardad algun dato relevante sobre el usuario. Al loguearse se crea una
    lista de claims que luego se guardaran en una Cookie.
 
-  
+---  
    `var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);`
 
    Reprensenta la identidad del usuario que se acaba de loguear . Anteriormente se creo una lista con todos los datos del usuario
    y en esta linea usamos esos datos para generar una Cookie que se guarda en el navegador del usuario que inicio sesion.
 
+---
    `await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));`
 
    HttpContex es un objeto que contiene toda la informacion sobre la peticion HTTP actual. En este caso lo usamos para guardar
    los datos del usuario en una Cookie con `SignInAsync` y nos permite iniciar sesion.
 
+---
 ## RecuperarClave(string correo)
 
 ```csharp
@@ -118,6 +122,7 @@ Este documento contiene una descripción general de los componentes técnicos de
         }
 ```
 
+---
 `var usuario = context.Usuarios.FirstOrDefault(u=> u.Correo == correo);`
 
 Primero busca a un usuario con el correo y lo guarda en `usuario`.
@@ -131,6 +136,7 @@ Primero busca a un usuario con el correo y lo guarda en `usuario`.
 Genera un guid que se utiliza como un token para el usuario que quiere cambiar la contraseña y se guarda ese token en la 
 base de datos.
 
+---
 `string linkRecuperacion = Url.Action("RestablecerClave", "Login", new { token }, Request.Scheme);`
 
 Se crea un link que apunta al metodo `RestablecerClave` del controlador `Login` y le envia por parametro el token.
@@ -138,15 +144,17 @@ Se crea un link que apunta al metodo `RestablecerClave` del controlador `Login` 
 sirve para generar la URL correcta para usarse fuera de la app, como en este caso que el metodo `RestablecerClave` se enviara
 por mail.
 
+---
 `string mensaje = $"<p>Para restablecer tu contraseña, haz click <a href='{linkRecuperacion}'>aquí</a>.</p>";`
 
 Se crea el mensaje que se quiere enviar por mail, el formato de los correos son en HTML.
 
+---
 `await emailService.EnviarCorreo(usuario.Correo, "Recuperacion de contraseña", mensaje);`
 
 Se utiliza la funcion `EnviarCorreo` del service.
 
-
+---
 ## RestablecerClave(string token)
 
 
@@ -188,7 +196,7 @@ Se utiliza la funcion `EnviarCorreo` del service.
             return RedirectToAction("Login");
         }
 ```
-
+---
 ``` 
         public IActionResult RestablecerClave(string token)
         {
@@ -206,6 +214,7 @@ Se utiliza la funcion `EnviarCorreo` del service.
 Esta primera funcion lo que hace es recibir por parametro el token (es el que se envio con la Url en la funcion `RecuperarClave`).
 Luego busca el token en la base de datos y si lo encuentra devuelve la vista con un viewModel con el token.
 
+---
 ``` 
             usuario.Clave = ConvertirSha256(model.NuevaClave); //Bashea la contraseña
             usuario.TokenConfirmacion = null; //Elimina el token para que no se pueda vovler a acceder
@@ -215,6 +224,7 @@ Luego busca el token en la base de datos y si lo encuentra devuelve la vista con
 En la segunda funcion se convierte la nueva clave en Bash, se elimina el token de confirmacion para que no se pueda volver a 
 acceder y se guardan los datos en la base de datos.
 
+---
 ## CerrarSesion()
 
 ```csharp
@@ -229,6 +239,7 @@ acceder y se guardan los datos en la base de datos.
 
 Elimina los datos de la Cookie con `SignOutAsync` y nos permite cerrar sesion.
 
+---
 
 
 

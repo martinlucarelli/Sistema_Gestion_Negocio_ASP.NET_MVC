@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 {
-    [Authorize]
+    [Authorize] //Cualquier tipo de usuario necesita tener autorizacion para acceder a etas paginas, para ello debe estar logueado
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -25,18 +25,18 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Empleado")]
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Empleado")] //Acceden los 3 tipos de usuarios
         public IActionResult EpleadoVista_Prueba()
         {
             return View();
         }
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")] //Solo 2 usuarios tiene acceso
         public IActionResult AdminNegocioVista_Prueba()
         {
             return View();
         }
 
-        [Authorize(Roles = "AdministradorGeneral")]
+        [Authorize(Roles = "AdministradorGeneral")] //Solo un usuario tiene acceso
         public IActionResult AdminGeneralVista_Prueba()
         {
             return View();
