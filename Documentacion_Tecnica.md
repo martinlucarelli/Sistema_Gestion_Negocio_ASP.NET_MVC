@@ -10,13 +10,14 @@ Este documento contiene una descripción general de los componentes técnicos de
    - [RecuperarClave(string correo)](#recuperarclavestring-correo)
    - [RestablecerClave(string token)](#restablecerclavestring-token)
    - [CerrarSesion()](#cerrarsesion)
+     
 2.[NegocioController](#negociocontroller)
-   - [Negocios()](#negocios())
-   - [AgregarNegocio(string correo)](#agregarnegocio(string-correo))
-   - [RegistrarAdministradorNegocio(string token)](#registraradministradornegocio(string-token))
-   - [RegistrarAdministradorNegocio(UsuarioViewModel user,string token)](#registraradministradoraegocio(usuarioviewModel-user,string-token))
-   - [RegistrarNegocio(string token)](#registrarnegocio(string-token))
-   - [RegistrarNegocio(NegocioViewModel n ,string token)](#registrarnegocio(negocioviewmodel-n,string-token))
+   - [Negocios()](#negocios)
+   - [AgregarNegocio(string correo)](#agregarnegociostring-correo)
+   - [RegistrarAdministradorNegocio(string token)](#registraradministradornegociostring-token)
+   - [RegistrarAdministradorNegocio(UsuarioViewModel user string token)](#registraradministradornegociousuarioviewmodel-user-string-token)
+   - [RegistrarNegocio(string token)](#registrarnegociostring-token)
+   - [RegistrarNegocio(NegocioViewModel n, string token)](#registrarnegocionegocioviewmodel-n-string-token)
 
 
 ---
@@ -30,7 +31,7 @@ Este documento contiene una descripción general de los componentes técnicos de
 
 ## LoginController
 
-## Login(UsuarioViewModel user)
+### Login(UsuarioViewModel user)
 
 ```csharp
         [HttpPost]
@@ -98,7 +99,7 @@ Este documento contiene una descripción general de los componentes técnicos de
    los datos del usuario en una Cookie con `SignInAsync` y nos permite iniciar sesion.
 
 ---
-## RecuperarClave(string correo)
+### RecuperarClave(string correo)
 
 ```csharp
             [HttpPost]
@@ -230,7 +231,7 @@ En la segunda funcion se convierte la nueva clave en Bash, se elimina el token d
 acceder y se guardan los datos en la base de datos.
 
 ---
-## CerrarSesion()
+### CerrarSesion()
 
 ```csharp
         public async Task<IActionResult> CerrarSesion()
@@ -249,7 +250,7 @@ Elimina los datos de la Cookie con `SignOutAsync` y nos permite cerrar sesion.
 
 ## NegocioController
 
-## Negocios()
+### Negocios()
 
 Esta funcion devuelve la vista de los negocios que estan guardados en la base de datos
 
