@@ -1,0 +1,47 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.NegocioViewModel
+@{
+    ViewData["Title"] = "RegistrarNegocio";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="registro-container">
+    <div class="registro-box">
+        <h2>Registrar negocio</h2>
+
+        <form method="post" asp-action="RegistrarNegocio" asp-controller="Negocio">
+
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input asp-for="nombre" type="text" id="name" />
+                <span asp-validation-for="nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Direccion">Direccion</label>
+                <input asp-for="direccion" type="text" id="address" />
+                <span asp-validation-for="direccion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="disableSelected">Nombre</label>
+                <select asp-for="rubroId">
+
+                    <option value="0" disabled selected >Selecione un rubro</option>
+                    @foreach(var rubro in Model.rubros)
+                    {
+                        
+                        <option value="@rubro.IdRubro">@rubro.Nombre</option>
+                    }
+
+                </select>   
+                <span asp-validation-for="rubroId" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" name="token" value="@Model.tokenUsuario" />
+
+            <button type="submit" class="btn-continuar">Aceptar</button>
+        </form>
+
+    </div>
+</div>
+

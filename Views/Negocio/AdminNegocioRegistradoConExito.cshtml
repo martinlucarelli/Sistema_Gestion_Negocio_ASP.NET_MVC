@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "AdminNegocioRegistradoConExito";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="alert-success" role="alert">
+
+    <h2>¡Usuario registrado con exito !</h2>
+    <p>Ya registramos tu usuario, ahora continuemos con tu negocio.</p>
+    <a asp-action="RegistrarNegocio" asp-controller="Negocio" asp-route-token="@Context.Request.Query["token"]" class="btn btn-primary">Registrar negocio</a>
+
+
+</div>
+

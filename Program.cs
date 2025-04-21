@@ -16,6 +16,8 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 
 //Inyectar servicio de mail
 builder.Services.AddScoped<EmailService>();
+//Inyectar servicio de bash de clave
+builder.Services.AddScoped<BashClaveService>();
 
 //Agregar Cookie de autenticacion
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

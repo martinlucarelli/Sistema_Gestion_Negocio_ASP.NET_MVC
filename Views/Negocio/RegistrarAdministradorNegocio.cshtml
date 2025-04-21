@@ -1,0 +1,42 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.UsuarioViewModel
+@{
+    ViewData["Title"] = "RegistrarAdministradorNegocio";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="registro-container">
+    <div class="registro-box">
+        <h2>Registrar usuario</h2>
+
+        <form method="post" asp-action="RegistrarAdministradorNegocio" asp-controller="Negocio">
+
+            <div class="form-group">
+                <label for="Nombre">Nombre</label>
+                <input asp-for="nombre" type="text" id="name" />
+                <span asp-validation-for="nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input asp-for="correo" type="email" id="email" />
+                <span asp-validation-for="correo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input asp-for="clave" type="password" id="password" />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Repetir contraseña</label>
+                <input asp-for="repetirClave" type="password" id="repeatpassword" />
+            </div>
+
+            <input type="hidden" name="token" value="@Model.token" />
+
+            <button type="submit" class="btn-continuar">Continuar</button>
+        </form>
+
+    </div>
+</div>
+

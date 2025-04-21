@@ -20,7 +20,16 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 - [En desarrollo](#en-desarrollo)
 - [Autor](#autor)
 
+## PROXIMO A HACER:
 
+Lo siguiente sera crear el controlador para negocio y sus vistas. La idea es que el admingral tenga acceso a una
+vista que sea negocios y dentro de ella pueda ver todos los negocios que hay en la base de datos, y agregar uno
+nuevo. A la hora de agregar el negocio lo unico que se va a pedir es el mail del cliente que pidio el servicio y
+se enviara por mail un formulario al cliente donde completara los datos de su negocio. Ademas podra agregar
+empleados desde ese mismo formulario. Luego se podra loguear y tendra el rol de AdminNegocio.
+
+Una vez realizado todo lo anterior se debe comenzar a desarrollar las vistas que tendra el admin, luego comenzar
+a desarrollar el controlador productos y ventas y por ultimo la opcion agregar empleados.
 
 
 
@@ -86,6 +95,9 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 ## Controllers
 - **LoginController**  
 	Encargado del inicio de sesion y restablecer contraseña. Tambien tiene una funcion que se encarga de cifrar las contraseñas.
+- **NegocioController**
+	Encargado de mostrar los negocios que hay en la base de datos al administrador general. Ademas se encarga de enviar un correo
+	a un cliente para poder realizar el registro de su usuario y de su negocio.
 
 ---
 
@@ -98,8 +110,12 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 ## Vistas principales
 
 - **Login.cshtml**: Inicio de sesión.
-- **RecuperarClave.cshtml: Correo donde se va enviar el cambio de contraseña
-- **RestablecerClave.cshtml: Formulario para cambiar la contraseña.
+- **RecuperarClave.cshtml**: Correo donde se va enviar el cambio de contraseña
+- **RestablecerClave.cshtml**: Formulario para cambiar la contraseña.
+- **Negocios**:Le muestran al Admin general los negocios del sistema.
+- **AgregarNegocio.cshtml**:La usa el Admin general para mandar un mail a un cliente que contrato el servicio.
+- **RegistrarAdministradorNegocio.cshtml**: Formulario para registrar al usuario dueño o administrador del negocio (se recibe por correo)
+- **RegistrarNegocio**: Formulario para registrar negocio.
 
 ---
 
@@ -121,7 +137,7 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 - [X] Login, confirmacion por correo y restablecer contraseña por correo.
 - [X] Autorizacion mediante roles del usuario, utilizando Cokies.
-- [ ] Form para que un cliente pueda completar los datos de su negocio (se envia por mail). --> No del todo seguro que asi sea.
+- [X] Form para que un cliente pueda completar los datos de su negocio (se envia por mail).
 - [ ] CRUD para que usuarios administradores de negocios registren usuarios empleados.
 - [ ] Mostrar productos en seccion Stock.
 - [ ] CRUD para productos (solo accesible para usuarios administradores de negocios).

@@ -17,11 +17,11 @@
             <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
             @if (User.IsInRole("AdministradorGeneral"))
             {
-            <a asp-area="" asp-controller="Home" asp-action="AdminGeneralVista_Prueba">ADMIN GRAL</a>
+            <a asp-area="" asp-controller="Negocio" asp-action="Negocios">Negocios</a>
             }
-            @if (User.IsInRole("AdministradorGeneral") || User.IsInRole("AdministradorNegocio"))
+            @if (User.IsInRole("AdministradorNegocio"))
             {
-                <a asp-area="" asp-controller="Home" asp-action="AdminNegocioVista_Prueba">ADMIN NEGOCIO</a>
+                <a asp-area="" asp-controller="Home" asp-action="AdminNegocioVista_Prueba">Empleados</a>
             }
             <a asp-area="" asp-controller="Home" asp-action="EpleadoVista_Prueba">EMPLEADO</a>
             

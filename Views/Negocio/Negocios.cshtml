@@ -1,0 +1,40 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Negocios";
+    Layout = "~/Views/Shared/_LayoutNavbar.cshtml";
+}
+
+
+<div class="mb-4 mt-2 ps-2">
+
+    <a asp-controller="Negocio" asp-action="AgregarNegocio" class="btn btn-success">Nuevo negocio</a>
+</div>
+
+<hr class="mb-4" />
+
+<div class="row">
+    @foreach (var negocio in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 position-relative">
+                <div class="card-body">
+                    
+                    <div class="position-absolute top-0 end-0 p-2">
+                        <a asp-controller="Negocios" asp-action="ModificarNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-controller="Negocios" asp-action="EliminarNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-sm btn-danger">Eliminar</a>
+                    </div>
+
+                    <h3 class="card-title mt-4">@negocio.Nombre</h3>
+                    <p class="card-text">Dirección: @negocio.Direccion</p>
+                    <p class="card-text">Rubro: @negocio.rubroNombre</p>
+
+                    
+                    <div class="mt-4">
+                        <a asp-controller="Negocios" asp-action="UsuariosDeNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-primary">Usuarios vinculados</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
