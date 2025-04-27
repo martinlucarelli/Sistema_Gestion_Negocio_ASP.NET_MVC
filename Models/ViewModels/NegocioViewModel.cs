@@ -12,5 +12,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels
     
         [NotMapped]
         public List<Rubro> rubros { get; set; }
+
+        
     }
 }

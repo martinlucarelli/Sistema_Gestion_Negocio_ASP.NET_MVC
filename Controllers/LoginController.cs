@@ -18,12 +18,14 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         NegocioContext context;
         public ILogger<LoginController> logger;
         private readonly EmailService emailService;
+        private readonly BashClaveService bashClaveService;
 
-        public LoginController(NegocioContext _context, ILogger<LoginController> _logger, EmailService _emailService)
+        public LoginController(NegocioContext _context, ILogger<LoginController> _logger, EmailService _emailService, BashClaveService _bashClaveService)
         {
             context= _context;
             logger= _logger;
             emailService= _emailService;
+            bashClaveService = _bashClaveService;
 
         }
 
@@ -40,7 +42,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
           
             var usuarioIngresado = context.Usuarios.FirstOrDefault(u => u.Correo == user.correo);
           
-            if(usuarioIngresado==null || usuarioIngresado.Clave != ConvertirSha256(user.clave)) 
+            if(usuarioIngresado==null || usuarioIngresado.Clave != bashClaveService.ConvertirSha256(user.clave)) 
             {
                 ModelState.AddModelError("correo", "Correo o contraseña incorrectas, intente de nuevo");
                 return View();
@@ -51,6 +53,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
                 //Al momento de iniciar sesion creamos las claims. Una claim es un dato que se guarda en la Cookie para identificar al usuario.
                 var claims = new List<Claim>
                 {
+                    new Claim(ClaimTypes.NameIdentifier,usuarioIngresado.IdUsuario.ToString()),
                     new Claim(ClaimTypes.Name,usuarioIngresado.Nombre),
                     new Claim("Correo",usuarioIngresado.Correo),
                     new Claim(ClaimTypes.Role,usuarioIngresado.Rol.ToString()),
@@ -129,8 +132,8 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
                 return View(model);
 
             }
-
-            usuario.Clave = ConvertirSha256(model.NuevaClave); //Bashea la contraseña
+            usuario.Clave= bashClaveService.ConvertirSha256(model.ConfirmarClave);
+            
             usuario.TokenConfirmacion = null; //Elimina el token para que no se pueda vovler a acceder
             context.SaveChanges(); //Guarda los datos en la base de datos
 
@@ -149,40 +152,6 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return RedirectToAction("Login", "Login");
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //METODO PARA CIFRAR LAS CONTRASEÑAS
-        public static string ConvertirSha256(string texto)
-        {
-            StringBuilder Sb = new StringBuilder();
-            using (SHA256 hash = SHA256.Create())
-            {
-                Encoding enc = Encoding.UTF8;
-                byte[] result = hash.ComputeHash(enc.GetBytes(texto));
-
-                foreach (byte b in result)
-                {
-                    Sb.Append(b.ToString("x2"));
-                }
-
-            }
-            return Sb.ToString();
-        }
-
-
 
     }
 

@@ -17,6 +17,11 @@ Este documento contiene una descripción general de los componentes técnicos de
    - [RegistrarAdministradorNegocio(UsuarioViewModel user,string token)](#registraradministradoraegocio(usuarioviewModel-user,string-token))
    - [RegistrarNegocio(string token)](#registrarnegocio(string-token))
    - [RegistrarNegocio(NegocioViewModel n ,string token)](#registrarnegocio(negocioviewmodel-n,string-token))
+   - [MiNegocio()](#minegocio())
+   - [EditarNegocio(string idNegocio)](#editarnegocio(string-idnegocio))
+   - [EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)](#editarnegocio(string-idnegocio,-negocioviewmodel-negocioeditar))
+3.[EmpleadoController](#empleadocontroller)
+   - [AgregarEmpleado(UsuarioViewModel user)](#agregarempleado(usuarioviewmodel-user))
 
 
 ---
@@ -332,7 +337,7 @@ Esta funcion se encarga de devolver la vista donde se encuentra el formulario pa
 antes de devolver la vista corrobora si el token que tiene ese usuario es valido para darle acceso a la vista, evitando que
 alguien sin permiso acceda a ella.
 
-``` 
+``` csharp
 
         [HttpGet]
         public IActionResult RegistrarAdministradorNegocio(string token)
@@ -494,6 +499,226 @@ ya se creo y ademas lo marca como usuario confirmado. Aqui ya finaliza el regist
         }
 
 ```
+
+---
+## MiNegocio()
+
+Esta funcion se encarga de mostrarle la vista de su negocio a los usuarios administradores de negocios, dentro de
+esta vista se puede ver la informacion de negocio, modificar esta informacion, se pueden ver los empleados, agregar
+empleados nuevos y modificar los que ya estan.
+Para permitir que se muestren los modelos Negocio y Empleado en la misma vista, se creo un viewmodel que almacena
+principalmente el negocio y la lista de empleados de ese negocio.
+
+``` 
+    public class NegocioConEmpleadoViewModel
+    {
+        public Negocio Negocio { get; set; }
+
+        public List<Usuario> Empleados { get; set; }
+
+        public string nombreRubro { get; set; }
+
+        public UsuarioViewModel EmpleadoNuevo { get; set; } = new UsuarioViewModel();
+    }
+```
+
+``` 
+        public IActionResult MiNegocio() 
+        {
+            string usuarioId = UsuarioHelper.ObtenerUsuarioId(HttpContext);
+
+            var usuario = context.Usuarios.Include(u => u.Negocio).FirstOrDefault(u => u.IdUsuario.ToString() == usuarioId);
+
+            if(usuario==null || usuario.Rol != Rol.AdministradorNegocio)
+            {
+               return Unauthorized(); 
+            }
+
+            var empleados = context.Usuarios.Where(u=> u.NegocioId== usuario.NegocioId  && u.Rol==Rol.Empleado).ToList();
+            var RubroDelNegocio = context.Rubros.FirstOrDefault(r=> r.IdRubro == usuario.Negocio.RubroId);
+            
+            var modelo = new NegocioConEmpleadoViewModel
+            {
+                Negocio = usuario.Negocio,
+                Empleados = empleados,
+                nombreRubro=RubroDelNegocio.Nombre,
+                EmpleadoNuevo = new UsuarioViewModel
+                {
+                    idNegocio=usuario.NegocioId,
+                }
+            };
+
+            return View(modelo); 
+        }
+
+```
+
+`string usuarioId = UsuarioHelper.ObtenerUsuarioId(HttpContext)` : Como para saber el negocio al que pertenece
+el usuario que esta con la sesion iniciada debemos conocer su Id, se creo un helper que contiene una funcion
+sencilla que devuelve el id del usuario que tiene la sesion iniciada a partir del `HttpContex` y los Claims que
+que guardan datos en la Cookie.
+
+---
+## EditarNegocio(string idNegocio)
+
+Esta funcion es la encargada de devolver la vista cuando el administrador de negocio quiere modificar algun dato
+de su negocio como nombre,direccion etc. No solo va a devolver el formulario para que el usuario cambie los datos,
+sino que ese formulario estara ya completo con los datos actuales del negocio.
+El Id del negocio qeu se quiere editar se recibe por parametro, Id se pasa por parametro desde la vista `MiNegocio`
+a partir del link que nos dirige a la vista para editar el negocio.
+
+`<a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>`
+
+
+```
+        public IActionResult EditarNegocio(string idNegocio)
+        {
+
+            var negocio = context.Negocios.FirstOrDefault(n=> n.IdNegocio.ToString()== idNegocio);
+            
+            if(negocio== null)
+            {
+                return NotFound();
+            }
+
+            var negocioModel = new NegocioViewModel
+            {
+                nombre = negocio.Nombre,
+                direccion = negocio.Direccion,
+                rubroId = negocio.RubroId,
+                rubros = context.Rubros.ToList()
+            };
+
+            ViewBag.negocioId = idNegocio;
+          
+            return View(negocioModel);
+        }
+
+```
+
+` ViewBag.negocioId = idNegocio;` : Como el id del negocio no esta en el viewmodel, se pasa a la vista por un
+viewBag.
+
+---
+
+## EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)
+
+Esta funcion es el post para editar el negocio. Hay que resaltar que como el viewModel no contiene el Id del
+negocio, el Id se para a partir del viewBag de la funcion que devuelve de la vista, para pasarlo se utiliza
+un input escondido (hidden).
+
+```
+        public IActionResult EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)
+        {
+            var negocio = context.Negocios.FirstOrDefault(n => n.IdNegocio.ToString() == idNegocio);
+
+            if(negocio== null) { return NotFound(); }
+
+            if(!ModelState.IsValid) 
+            {
+                ViewBag.negocioId= idNegocio;
+                return View(negocioEditar);
+            }
+
+            negocio.Nombre = negocioEditar.nombre;
+            negocio.Direccion = negocioEditar.direccion;
+            negocio.RubroId = negocioEditar.rubroId;
+
+            context.SaveChanges();
+
+            return RedirectToAction("MiNegocio");
+        }
+```
+
+Forma de pasar el Id del negocio:
+
+`<input type="hidden" name="idNegocio" value="@ViewBag.negocioId" />`
+
+---
+
+### EmpleadoController
+
+## AgregarEmpleado(UsuarioViewModel user)
+
+Esta funcion no tiene Get ya que el formulario para agregar empleado no es precisamente una vista, sino que es una
+`PartialView`, que es una fragmento HTML que se muestra dentro de otra vista. En este caso se utiliza para mostrar
+el forumlario para agregar un empleado en un modal. Para llamar a este PartialView se hace desde el cshtml donde
+queremos que aparezca.
+
+Mostrar la PartialView:
+
+```cshtml
+   <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
+        Agregar empleado
+    </button>
+
+    <div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("/Views/Empleado/AgregarEmpleado.cshtml", Model.EmpleadoNuevo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+```
+
+
+```
+[HttpPost]
+        public async Task<IActionResult> AgregarEmpleado(UsuarioViewModel user)
+        {
+
+
+            string token = Guid.NewGuid().ToString();
+            logger.LogWarning($"El token que se genero fue : {token}");
+
+            if (context.Usuarios.Any(u => u.Correo == user.correo))
+            {
+                TempData["DangerMessage"] = "Ya existe un usuario registrado con ese correo.";
+                TempData.Keep("DangerMessage");
+                return RedirectToAction("MiNegocio", "Negocio");
+            }
+
+            Usuario empleadoARegistrar = new Usuario()
+            {
+                Nombre = user.nombre,
+                Correo = user.correo,
+                Clave = "AaJDnn123",
+                TokenConfirmacion = token,
+                Rol = Rol.Empleado,
+                NegocioId = user.idNegocio
+            };
+            context.Usuarios.Add(empleadoARegistrar);
+            context.SaveChanges();
+
+            //Enlace para enviar correo
+
+            string linkRegistrarNegocio = Url.Action("CompletarRegistroEmpleado", "Empleado", new { token }, Request.Scheme);
+            string mensaje = $"<p>Para terminar de registrar su cuenta, haz click <a href='{linkRegistrarNegocio}'>aquí</a>";
+
+            await emailService.EnviarCorreo(empleadoARegistrar.Correo, "Completar registro", mensaje);
+
+            TempData["SuccessMessage"] = "Correo enviado correctamente al usuario para completar el registro.";
+            return RedirectToAction("MiNegocio","Negocio"); 
+        }
+
+```
+
+`TempData` : El principal problema de menajar modals y partial views es como manejar cuando se completan incorrectamente
+los formularios. Para manejar este tipo de errores se utiliza los temp data que sirven para guardar un mensaje entre
+dos peticiones Http, por eso si utilizamos dos temp data, uno de exito y otro por si algo salio mal. Si al completar
+el formulario y presionar enviar hay algun error enviamos un tempdata y aparecera un alert avisandole al usurio que
+no se envio el correo, lo mismo si el correo fue enviado con exito.
+`TempData.Keep("DangerMessage")` Sirve para que el temp data no se elimina al refrescar la pagina.
+
+
+
 
 
 

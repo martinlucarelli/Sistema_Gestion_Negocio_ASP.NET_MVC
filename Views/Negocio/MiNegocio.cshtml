@@ -1,0 +1,92 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.NegocioConEmpleadoViewModel;
+@{
+    ViewData["Title"] = "MiNegocio";
+    Layout = "~/Views/Shared/_LayoutNavBar.cshtml";
+}
+
+<div class="row">
+    
+    <h1>Negocio</h1>
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 position-relative">
+                <div class="card-body">
+
+                    <div class="position-absolute top-0 end-0 p-2">
+                    <a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
+                </div>
+
+                    <h3 class="card-title mt-4">@Model.Negocio.Nombre</h3>
+                    <p class="card-text">Dirección: @Model.Negocio.Direccion</p>
+                    <p class="card-text">Rubro: @Model.nombreRubro </p>
+
+                </div>
+            </div>
+        </div>
+</div>
+
+
+<div class="row">
+
+    <h1>Empleados</h1>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["DangerMessage"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["DangerMessage"]
+        </div>
+    }
+
+
+
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
+        Agregar empleado
+    </button>
+
+    <div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Nuevo Empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("/Views/Empleado/AgregarEmpleado.cshtml", Model.EmpleadoNuevo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    @foreach(var empleado in Model.Empleados)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 position-relative">
+                <div class="card-body">
+
+                    <div class="position-absolute top-0 end-0 p-2">
+                        <a asp-controller="Negocios" asp-action="" asp-route-id="" class="btn btn-sm btn-warning">Editar</a>
+                        <a asp-controller="Negocios" asp-action="" asp-route-id="" class="btn btn-sm btn-danger">Eliminar</a>
+                    </div>
+
+                    <h3 class="card-title mt-4">@empleado.Nombre</h3>
+                    <p class="card-text">Correo: @empleado.Correo</p>
+                </div>
+            </div>
+        </div>
+
+    }
+
+
+    
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/agregarEmpleado.js"></script>
+</div>

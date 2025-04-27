@@ -22,14 +22,12 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## PROXIMO A HACER:
 
-Lo siguiente sera crear el controlador para negocio y sus vistas. La idea es que el admingral tenga acceso a una
-vista que sea negocios y dentro de ella pueda ver todos los negocios que hay en la base de datos, y agregar uno
-nuevo. A la hora de agregar el negocio lo unico que se va a pedir es el mail del cliente que pidio el servicio y
-se enviara por mail un formulario al cliente donde completara los datos de su negocio. Ademas podra agregar
-empleados desde ese mismo formulario. Luego se podra loguear y tendra el rol de AdminNegocio.
+- Funcionalidad del admin del negocio para cambiar nombre del empleado o para eliminarlo, lo mejor seria que para
+cambiar el nombre se utilice un modal asi no se carga una nueva vista solo para cargar el nombre.
+-Lo proximo a realizar es la vista que va mostrar todos los productos que perteneces a un negocio, para esto
+voy a utilizar Jquery datatables que me va a permitir realizar la paginacion,ordenar columnas y buscar en tiempo
+real.
 
-Una vez realizado todo lo anterior se debe comenzar a desarrollar las vistas que tendra el admin, luego comenzar
-a desarrollar el controlador productos y ventas y por ultimo la opcion agregar empleados.
 
 
 

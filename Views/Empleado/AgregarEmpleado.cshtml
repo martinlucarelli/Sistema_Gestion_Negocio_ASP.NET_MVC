@@ -1,0 +1,26 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.UsuarioViewModel
+
+
+
+
+<form  asp-action="AgregarEmpleado" asp-controller="Empleado" method="post">
+    <input type="hidden" asp-for="idNegocio" />
+    <div class="mb-3">
+        <label asp-for="nombre" class="form-label"></label>
+        <input asp-for="nombre" class="form-control" />
+        <span asp-validation-for="nombre" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="correo" class="form-label"></label>
+        <input asp-for="correo" class="form-control" />
+        <span asp-validation-for="correo" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/js/agregarEmpleado.js"></script>
+

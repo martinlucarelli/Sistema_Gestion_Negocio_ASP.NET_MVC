@@ -1,0 +1,34 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.UsuarioViewModel
+@{
+    ViewData["Title"] = "CompletarRegistroEmpleado";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="registro-container">
+
+    <div class="registro-box">
+        <h1>Completar Registro</h1>
+        <p>¡Hola @Model.nombre! Ingresa una contraseña para acceder al sistema con el correo @Model.correo</p>
+
+        <form method="post" asp-action="CompletarRegistroEmpleado" asp-controller="Empleado">
+
+            <div class="form-group">
+                <label for="Clave">Contraseña</label>
+                <input asp-for="clave" type="password" id="name" />
+                <span asp-validation-for="clave" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Repetir clave">Repetir contraseña</label>
+                <input asp-for="repetirClave" type="password" id="name" />
+                <span asp-validation-for="repetirClave" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" name="token" value="@Model.token" />
+
+            <button type="submit" class="btn-continuar">Confirmar</button>
+        </form>
+
+    </div>
+</div>
+

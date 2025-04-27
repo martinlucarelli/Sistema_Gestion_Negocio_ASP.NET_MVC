@@ -16,6 +16,8 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels
 
         public string token { get; set; }
 
+        public Guid idNegocio {  get; set; }
+
 
     }
 }

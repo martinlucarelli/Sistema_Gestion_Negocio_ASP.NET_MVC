@@ -6,6 +6,8 @@ using Sistema_Gestion_Negocio_ASP.NET_MVC.Models;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Helper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 {
@@ -188,6 +190,82 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
         public IActionResult AdminNegocioRegistradoConExito(){ return View();}
         public IActionResult NegocioRegistradoConExito() { return View(); }
+
+        public IActionResult MiNegocio() 
+        {
+            string usuarioId = UsuarioHelper.ObtenerUsuarioId(HttpContext);
+
+            var usuario = context.Usuarios.Include(u => u.Negocio).FirstOrDefault(u => u.IdUsuario.ToString() == usuarioId);
+
+            if(usuario==null || usuario.Rol != Rol.AdministradorNegocio)
+            {
+               return Unauthorized(); 
+            }
+
+            var empleados = context.Usuarios.Where(u=> u.NegocioId== usuario.NegocioId  && u.Rol==Rol.Empleado).ToList();
+            var RubroDelNegocio = context.Rubros.FirstOrDefault(r=> r.IdRubro == usuario.Negocio.RubroId);
+            
+            var modelo = new NegocioConEmpleadoViewModel
+            {
+                Negocio = usuario.Negocio,
+                Empleados = empleados,
+                nombreRubro=RubroDelNegocio.Nombre,
+                EmpleadoNuevo = new UsuarioViewModel
+                {
+                    idNegocio=usuario.NegocioId,
+                }
+            };
+
+            return View(modelo); 
+        }
+
+        [HttpGet]
+        public IActionResult EditarNegocio(string idNegocio)
+        {
+
+            var negocio = context.Negocios.FirstOrDefault(n=> n.IdNegocio.ToString()== idNegocio);
+            
+            if(negocio== null)
+            {
+                return NotFound();
+            }
+
+            var negocioModel = new NegocioViewModel
+            {
+                nombre = negocio.Nombre,
+                direccion = negocio.Direccion,
+                rubroId = negocio.RubroId,
+                rubros = context.Rubros.ToList()
+            };
+
+            ViewBag.negocioId = idNegocio;
+          
+            return View(negocioModel);
+        }
+
+        [HttpPost]
+        public IActionResult EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)
+        {
+            var negocio = context.Negocios.FirstOrDefault(n => n.IdNegocio.ToString() == idNegocio);
+
+            if(negocio== null) { return NotFound(); }
+
+            if(!ModelState.IsValid) 
+            {
+                ViewBag.negocioId= idNegocio;
+                return View(negocioEditar);
+            }
+
+            negocio.Nombre = negocioEditar.nombre;
+            negocio.Direccion = negocioEditar.direccion;
+            negocio.RubroId = negocioEditar.rubroId;
+
+            context.SaveChanges();
+
+            return RedirectToAction("MiNegocio");
+        }
+
+
 
 
 
