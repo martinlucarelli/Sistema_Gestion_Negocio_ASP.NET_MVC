@@ -78,7 +78,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult CompletarRegistroEmpleado(UsuarioViewModel user,string token)
+        public IActionResult CompletarRegistroEmpleado(UsuarioViewModel user, string token)
         {
             var usuarioActualizar = context.Usuarios.FirstOrDefault(u => u.TokenConfirmacion == token);
 
@@ -86,7 +86,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             {
                 string claveCifrada = bashClaveService.ConvertirSha256(user.clave);
 
-                usuarioActualizar.Clave= claveCifrada;
+                usuarioActualizar.Clave = claveCifrada;
                 usuarioActualizar.Confirmado = true;
                 usuarioActualizar.TokenConfirmacion = null;
 
@@ -101,10 +101,39 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
             return RedirectToAction("EmpleadoRegistradoConExito", "Empleado");
 
-    
+
+        }
+        public IActionResult EmpleadoRegistradoConExito() { return View(); }
+
+        [HttpPost]
+        public IActionResult CambiarNombreEmpleado(string correo,string nuevoNombre) 
+        {
+            var usuarioEditar = context.Usuarios.FirstOrDefault(u => u.Correo == correo);
+
+            if(usuarioEditar == null) { return NotFound(); }
+
+            usuarioEditar.Nombre = nuevoNombre;
+            context.SaveChanges();
+
+            return RedirectToAction("MiNegocio","Negocio");
+        
         }
 
-        public IActionResult EmpleadoRegistradoConExito() { return View(); }
+        [HttpPost]
+        public IActionResult EliminarEmpleado(string correo)
+        {
+            var usuarioEliminar = context.Usuarios.FirstOrDefault(u=> u.Correo== correo);
+
+            if(usuarioEliminar == null) { return NotFound(); }
+
+            context.Usuarios.Remove(usuarioEliminar);
+            context.SaveChanges();
+
+            return RedirectToAction("MiNegocio", "Negocio");
+
+        }
+
+
     }
 }
 

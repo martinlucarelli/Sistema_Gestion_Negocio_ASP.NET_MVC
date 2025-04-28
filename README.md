@@ -22,8 +22,6 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## PROXIMO A HACER:
 
-- Funcionalidad del admin del negocio para cambiar nombre del empleado o para eliminarlo, lo mejor seria que para
-cambiar el nombre se utilice un modal asi no se carga una nueva vista solo para cargar el nombre.
 -Lo proximo a realizar es la vista que va mostrar todos los productos que perteneces a un negocio, para esto
 voy a utilizar Jquery datatables que me va a permitir realizar la paginacion,ordenar columnas y buscar en tiempo
 real.
@@ -136,13 +134,13 @@ real.
 - [X] Login, confirmacion por correo y restablecer contraseña por correo.
 - [X] Autorizacion mediante roles del usuario, utilizando Cokies.
 - [X] Form para que un cliente pueda completar los datos de su negocio (se envia por mail).
-- [ ] CRUD para que usuarios administradores de negocios registren usuarios empleados.
+- [X] CRUD para que usuarios administradores de negocios registren usuarios empleados.
 - [ ] Mostrar productos en seccion Stock.
 - [ ] CRUD para productos (solo accesible para usuarios administradores de negocios).
 - [ ] Mostrar lista de ventas, posibilidad de imprimir el detalle de una venta (tipo facutra).
 - [ ] Mostrar lista de ventas especificando entre que fechas mostrar la lista, por defecto debe estar en el dia actual,pero se puede
 cambiar las fechas con un calendario.
-- [ ] Descargar en formato xls el la tabla con las ventas.
+- [ ] Descargar en formato xls la tabla con las ventas.
 - [ ] API REST para actualizar el DOM sin recargar la página
 - [ ] Estadísticas con gráficos
 

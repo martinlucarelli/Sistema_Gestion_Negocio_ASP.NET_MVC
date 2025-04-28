@@ -48,6 +48,8 @@
         Agregar empleado
     </button>
 
+
+    
     <div class="modal fade" id="modalAgregarEmpleado" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -62,6 +64,36 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modalCambiarNombreEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar nombre</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("/Views/Empleado/CambiarNombreDeEmpleado.cshtml", Model.EmpleadoNuevo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEliminarEmpleado" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar empleado</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    @await Html.PartialAsync("/Views/Empleado/EliminarEmpleado.cshtml", Model.EmpleadoNuevo)
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
 
 
     @foreach(var empleado in Model.Empleados)
@@ -71,8 +103,14 @@
                 <div class="card-body">
 
                     <div class="position-absolute top-0 end-0 p-2">
-                        <a asp-controller="Negocios" asp-action="" asp-route-id="" class="btn btn-sm btn-warning">Editar</a>
-                        <a asp-controller="Negocios" asp-action="" asp-route-id="" class="btn btn-sm btn-danger">Eliminar</a>
+
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
+                            Cambiar nombre
+                        </button>
+
+                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
+                            Eliminar
+                        </button>
                     </div>
 
                     <h3 class="card-title mt-4">@empleado.Nombre</h3>
@@ -88,5 +126,40 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/js/agregarEmpleado.js"></script>
+    
+    
+    @section Scripts {
+        <script>
+            var modalCambiarNombre = document.getElementById('modalCambiarNombreEmpleado');
+
+            modalCambiarNombre.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var correo = button.getAttribute('data-correo');
+
+                var inputCorreo = modalCambiarNombre.querySelector('#correoEmpleado');
+                inputCorreo.value = correo;
+            });
+        </script>
+
+        <script>
+            var modalEliminarEmpleado = document.getElementById('modalEliminarEmpleado');
+
+            modalEliminarEmpleado.addEventListener('show.bs.modal', function (event) {
+                var button = event.relatedTarget;
+                var correo = button.getAttribute('data-correo');
+                var nombre = button.getAttribute('data-nombre');
+
+                var inputCorreo = modalEliminarEmpleado.querySelector('#correoEmpleado');
+                inputCorreo.value = correo;
+
+                var textoConfirmacion = modalEliminarEmpleado.querySelector('#textoConfirmacion');
+                if (textoConfirmacion) {
+                    textoConfirmacion.textContent = `¿Desea eliminar a ${nombre}?`;
+                }
+            });
+        </script>
+
+
+    }
+
 </div>

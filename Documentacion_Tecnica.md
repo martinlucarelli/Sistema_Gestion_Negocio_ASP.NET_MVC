@@ -21,6 +21,7 @@ Este documento contiene una descripción general de los componentes técnicos de
    - [MiNegocio()](#minegocio())
    - [EditarNegocio(string idNegocio)](#editarnegocio(string-idnegocio))
    - [EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)](#editarnegocio(string-idnegocio,-negocioviewmodel-negocioeditar))
+   - 
 3.[EmpleadoController](#empleadocontroller)
    - [AgregarEmpleado(UsuarioViewModel user)](#agregarempleado(usuarioviewmodel-user))
    - [Negocios()](#negocios)
