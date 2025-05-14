@@ -22,9 +22,14 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## PROXIMO A HACER:
 
--Lo proximo a realizar es la vista que va mostrar todos los productos que perteneces a un negocio, para esto
+- Lo proximo a realizar es la vista que va mostrar todos los productos que perteneces a un negocio, para esto
 voy a utilizar Jquery datatables que me va a permitir realizar la paginacion,ordenar columnas y buscar en tiempo
 real.
+- Para realizar la vista de productos se va a utilar una API , la api se va a crear dentro del mismo proyecto, y tambien
+utilizara la carpeta controller, pero la logica va a estar dentro de la carpeta service, de esta manera aplicamos la inyeccin
+de dependencias. Por lo tanto todo lo que este relacionado con los productos, tanto ver la lista o realizar operaciones, van
+a pasar por la API interna del sistema, si combinamos la api con Fetch (JAVASCRIPT) nos va a permitir que cuando se realice 
+alguna opéracion no va a ser necesario recargar la pagina para que se muestren esos cambios.
 
 
 

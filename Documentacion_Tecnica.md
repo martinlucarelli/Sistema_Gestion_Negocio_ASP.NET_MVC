@@ -21,7 +21,7 @@ Este documento contiene una descripción general de los componentes técnicos de
    - [MiNegocio()](#minegocio())
    - [EditarNegocio(string idNegocio)](#editarnegocio(string-idnegocio))
    - [EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)](#editarnegocio(string-idnegocio,-negocioviewmodel-negocioeditar))
-   - 
+
 3.[EmpleadoController](#empleadocontroller)
    - [AgregarEmpleado(UsuarioViewModel user)](#agregarempleado(usuarioviewmodel-user))
    - [Negocios()](#negocios)
@@ -30,14 +30,23 @@ Este documento contiene una descripción general de los componentes técnicos de
    - [RegistrarAdministradorNegocio(UsuarioViewModel user string token)](#registraradministradornegociousuarioviewmodel-user-string-token)
    - [RegistrarNegocio(string token)](#registrarnegociostring-token)
    - [RegistrarNegocio(NegocioViewModel n, string token)](#registrarnegocionegocioviewmodel-n-string-token)
+ 
+4.[ProductoController](#productocontroller)
+    -[Productos()](#productos())
+
+5.[ProductoApiService](#productoapiservice)
+
+6.[ProductoApiController](#productocontroller)
 
 
 ---
 ## SE DEBE AGREGAR LA DOCUMENTACION DE 
 
 -Configuration (para que sirve la clase de esa carpeta)
--EmailService (explicar la funcion)
--Como funciona recupearar y restablecer clave.
+-EmailService (explicar la funcion).
+Funciones de javascript relacionadas con POST,PUT Y DELETE
+
+
 
 ---
 
@@ -725,9 +734,396 @@ el formulario y presionar enviar hay algun error enviamos un tempdata y aparecer
 no se envio el correo, lo mismo si el correo fue enviado con exito.
 `TempData.Keep("DangerMessage")` Sirve para que el temp data no se elimina al refrescar la pagina.
 
+---
+
+## ProductoController
+
+A deiferencia de los controllers anteriores, este controller no contiene logica, de hecho solo contiene una funcion
+que es la encargada de devolver la vista. Esto se debe a que para manipular los productos se creo una API interna
+del sistema que va a ser la encargada de realizar todas las operaciones con ellos (GET,POST,PUT,DELETE).La logica
+de estas operaciones esta en un service y la api se consume desde Javascript con fetch.
+
+###  Productos()
+
+```cs
+        public IActionResult Productos()
+        {
+            string negocioIdUsuario = UsuarioHelper.ObtenerNegocioIdDelUsuario(HttpContext);
+
+            ViewBag.negocioId = negocioIdUsuario;
+
+            return View();
+        }
+```
+
+Esta funcion simplemente devuelve la vista de productos, con la particularidad que envia un viewbag con el id del
+negocio al que pertenece el usuario que esta logueado, eso es porque todos los productos estan en la misma tabla
+de la base de datos, por lo tanto la vista solo debe devolver los productos del negocio del usuario que esta logueado.
+
+---
+
+## ProductoApiService
+
+En este archivo se contiene la logica de la API, ademas de la interfaz que nos permite realizar la inyeccion de
+dependencias.
+
+```cs
+    
+     public class ProductoApiService : IProductoApiService
+    {
+        NegocioContext context;
+        public readonly ILogger<ProductoApiService> logger;
+
+        
+        
+        public ProductoApiService(NegocioContext _context, ILogger<ProductoApiService> _logger)
+        {
+            context= _context;
+            logger= _logger;
+        }
+
+        public IEnumerable<Producto> Get(Guid idNegocio)
+        { 
+            return context.Productos.Where(p => p.NegocioId == idNegocio);
+        }
+
+        public Producto GetProductoDetalle(string id)
+        {
+            return context.Productos.Find(id);
+        }
+
+        public async Task Save(ProductoDTO nuevoProducto)
+        {
+            var producto = new Producto
+            {
+                Nombre=nuevoProducto.Nombre,
+                Precio=nuevoProducto.Precio.Value,
+                Stock=nuevoProducto.Stock.Value,
+                NegocioId=nuevoProducto.NegocioId
+            };
+            
+            context.Productos.Add(producto);
+            await context.SaveChangesAsync();
+        }
+        public async Task Delete(string id)
+        {
+            var productoEliminar = await context.Productos.FindAsync(id);
+            
+            if(productoEliminar != null)
+            {
+                context.Productos.Remove(productoEliminar);
+            }
+            else
+            {
+                logger.LogError("NO SE ENCONTRO EL PRODUCTO QUE SE DESEA ELIMINAR");
+            }
+            
+            
+            await context.SaveChangesAsync();
+        }
+        public async Task Update(string id,ProductoDTO productoUpd)
+        {
+            var productoExistente = await context.Productos.FindAsync(id);
+
+            if(productoExistente != null)
+            {
+                if(!string.IsNullOrEmpty(productoUpd.Nombre))
+                {
+                    productoExistente.Nombre = productoUpd.Nombre;
+                }
+                if (productoUpd.Precio.HasValue && productoUpd.Precio > 0 && productoUpd.Precio < 1000000000)
+                {
+                    productoExistente.Precio = productoUpd.Precio.Value;
+
+                    logger.LogError("ERROR AL CAMBIAR PRECIO DEL PRODUCTO");
+                }
+                if (productoUpd.Stock.HasValue)
+                {
+                    productoExistente.Stock = productoUpd.Stock.Value;
+                }
+            }
+            else
+            {
+                logger.LogError("NO SE ENCONTRO EL PRODUCTO QUE SE DESEA ACTUALIZAR");
+            }
+            
+            await context.SaveChangesAsync();
+        }
+
+    }
+
+    public interface IProductoApiService
+    {
+
+        IEnumerable<Producto> Get(Guid idNegocio);
+        Producto GetProductoDetalle(string id);
+        Task Save(ProductoDTO nuevoProducto);
+        Task Delete(string id);
+        Task Update(string id,ProductoDTO productoUpd);
+    }
+```
+
+`Get :` Devuelve la lista de productos del negocio correspondiente completa, debe recibir por parametro el id del
+negocio para solo devolver los productos relacionados a ese negocio.
+`GetProductoDetalle :` Solamente devuelve el producto del id que se pasa por parametro.
+`Save :` Agrega un nuevo producto.
+`Delete :` Elimina un producto.
+`Update :` Actualiza un producto existente.
+
+---
+
+### ProductoApiController
+
+Este es el controller de la API de productos, no contiene demasiada logica, ya que la logica esta en el service, pero
+es quien se encarga de asignar los endpoints por donde se consumira la API. Ademas la API es consumida desde el
+frontend con javascript, asi que tambien se mostrara eso desde aqui.
+
+``` cs
+
+    [ApiController]
+    [Route("[controller]")]
+    public class ProductoApiController : ControllerBase
+    {
+        IProductoApiService productoApiService;
+        NegocioContext context;
+        public readonly ILogger<ProductoApiController> logger;
+
+        public ProductoApiController(IProductoApiService _productoApiService, NegocioContext _context, ILogger<ProductoApiController> _logger)
+        {
+            productoApiService = _productoApiService;
+            context = _context;
+            logger = _logger;
+        }
+
+        [HttpGet("{idNegocio}")]
+        public ActionResult Get(Guid idNegocio)
+        {
+            return Ok(productoApiService.Get(idNegocio));
+
+        }
+        [HttpGet("Detalle/{id}")]
+        public IActionResult GetProductoDetalle(string id)
+        {
+            var producto = productoApiService.GetProductoDetalle(id);
+
+            if (producto == null)
+            {
+                return NotFound();
+            }
+
+            var dto = new ProductoDTO
+            {
+                IdProducto = producto.IdProducto,
+                Nombre = producto.Nombre,
+                Precio = producto.Precio,
+                Stock = producto.Stock,
+            };
+
+            return Ok(dto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody] ProductoDTO nuevoProducto)
+        {
+            await productoApiService.Save(nuevoProducto);
+            return Ok(new { message = "Producto guardado con éxito" });
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            await productoApiService.Delete(id);
+            return Ok(new { message = "Producto eliminado" });
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(string id, [FromBody] ProductoDTO productoUpd)
+        {
+            var prod = context.Productos.FirstOrDefault(p=> p.IdProducto== id);
+
+            if(prod ==null)
+            {  
+                return NotFound(); 
+            }
+            else
+            { 
+                await productoApiService.Update(id, productoUpd);
+                return Ok();
+            }
+        }
+    }
+```
+
+`GetProductoDetalle :` Esta funcion esta relacionada con update, sirve para que a la hora de abrir el formulario
+para actualizar un producto, ya aparezcan los datos cargados, logrando que el usuario solamente modifique lo que
+necesite.
+
+---
+## Funciones de Javascript relacionadas con GET:
+
+``` javascript
+
+document.addEventListener("DOMContentLoaded", function () 
+{                                                             
+    cargarProductos();
+                                                           
+});
 
 
+function OcultarColumnaAEmpleados() {
+    if (!esAdminNegocio) {
+        const columnasAcciones = document.querySelectorAll("td:nth-child(5), th:nth-child(5)");
+        columnasAcciones.forEach(celda => {
+            celda.style.display = "none";
+        });
+    }
+}
 
+let productos = []; 
+function cargarProductos() {
+    fetch(`/ProductoApi/${negocioId}`)
+        .then(res => res.json())
+        .then(data => {
+
+            productos = data;
+            filtrarYOrdenar();
+
+
+        })
+        .catch(err => {
+            console.error("Error al traer productos", err);
+        });
+}
+
+function filtrarYOrdenar() {
+
+    const texto = document.getElementById("inputBuscar").value.toLowerCase();
+    const criterio = document.getElementById("selectOrdenar").value;
+
+    let filtrados = productos.filter(p => p.nombre.toLowerCase().startsWith(texto));
+
+    filtrados.sort((a, b) => {
+        if (criterio === "nombre") return a.nombre.localeCompare(b.nombre);
+        if (criterio === "precio") return a.precio - b.precio;
+        if (criterio === "stock") return a.stock - b.stock;
+        return 0;
+    });
+
+    mostrarProductos(filtrados);
+}
+
+function mostrarProductos(lista) {
+
+    const tbody = document.querySelector("tbody");
+    tbody.innerHTML = "";
+
+    lista.forEach((item, index) => {
+        const row = document.createElement("tr");
+        const nombreSanitizado = item.nombre.replace(/'/g, "\\'");
+        row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${item.nombre}</td>
+                    <td>${item.precio}</td>
+                    <td>${item.stock}</td>
+                    <td>
+                         <button class="btn btn-sm btn-primary me-2" onclick="modificarProducto('${item.idProducto}')">Modificar</button>
+                         <button class="btn btn-sm btn-danger" onclick="eliminarProducto('${item.idProducto}', '${nombreSanitizado}')">Eliminar</button>
+                    </td>
+                `;
+
+        tbody.appendChild(row);
+    });
+
+    OcultarColumnaAEmpleados();
+}
+
+document.getElementById("inputBuscar").addEventListener("input", filtrarYOrdenar);
+document.getElementById("selectOrdenar").addEventListener("change", filtrarYOrdenar);
+
+```
+
+`document.addEventListener("DOMContentLoaded", function ():` DOMcontentLoaded se encarga de ejecutar esta funcion
+solo cuando este cargado el HTML, por lo tanto lo que se coloque alli esperara a que se carguen todos los elementos
+para luego ejecutarlo.
+
+`function OcultarColumnaAEmpleados() :`Esta funcion se encarga de ocultar las columnas de modificar y eliminar a 
+los usuarios que sean empleados. El dato del usuario empleado se envia desde el cshtml de la siguiente forma :
+
+```cshtml
+<script>
+    const esAdminNegocio = @(User.IsInRole("AdministradorNegocio").ToString().ToLower());
+</script>
+
+```
+
+`let productos = [] :`Se declara un vector que luego sera mostrado, no se muestran directamente los productos
+traidos con fetch ya que los productos pueden ser filtrados u ordenados, para eso sirve esta variable.
+
+`function cargarProductos() :` Esta funcino se encarga de consumir la API, la data que devuelve la api la guarda
+en la variable productos y luego llama a la funcion filtrarYOrdenar. Por otra parte `${negocioId}` que se coloca en
+el endpoint es traido desde el html al igual que el rol de usuario.
+El id del negocio es fundamental para filtrar los productos del negocio correspondiente, la logica de esto se encuentra
+en `ProductoController` y `ProductoApiController`
+
+`function filtrarYOrdenar() :`Esta funcion se encarga de traer los datos del input donde se realiza la busqueda y
+el dato del selector donde se indica por que se quiere ordenar la lista y a partir de ello crea una variable donde
+alamacenara la lista de filtrados y va guardando en ella lo que se va filtrando, luego llama a la funcion que muestra
+los productos y le envia por parametro esa lista filtrada.
+
+`function mostrarProductos(lista) :` Esta funcion recibe por parametro la lista de productos que se va a mostrar
+(ya filtrada) y va reemplazando cada elemento HTML con la informacion del producto correspondiente.
+
+`document.getElementById("inputBuscar").addEventListener("input", filtrarYOrdenar)` y 
+`document.getElementById("selectOrdenar").addEventListener("change", filtrarYOrdenar); :` Estos dos elementos
+se encargar de que cada vez comienza a escribir en la parte de busqueda o cada vez que cambia el tipo de ordanamiento
+se llame a las funciones para que actualicen la lista.
+
+---
+## Funciones de Javascript relacionadas con POST:
+
+```Javascript
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("formAgregarProducto");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const producto = {
+            nombre: document.getElementById("nombre").value,
+            precio: parseFloat(document.getElementById("precio").value),
+            stock: parseInt(document.getElementById("stock").value),
+            negocioId: negocioId
+        };
+
+        fetch("/ProductoApi", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(producto)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Error al agregar producto");
+                
+            })
+            .then(data => {
+                console.log("Producto agregado:", data);
+                // Acá podés cerrar el modal
+                const modal = bootstrap.Modal.getInstance(document.getElementById("modalAgregarProducto"));
+                modal.hide();
+
+                document.getElementById("formAgregarProducto").reset();
+
+                cargarProductos();
+
+            })
+            .catch(err => {
+                console.error("Error al enviar producto", err);
+            });
+    });
+});
+
+```
 
 
 

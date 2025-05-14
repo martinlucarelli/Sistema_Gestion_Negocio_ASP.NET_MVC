@@ -54,6 +54,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier,usuarioIngresado.IdUsuario.ToString()),
+                    new Claim("IdNegocio",usuarioIngresado.NegocioId.ToString()),
                     new Claim(ClaimTypes.Name,usuarioIngresado.Nombre),
                     new Claim("Correo",usuarioIngresado.Correo),
                     new Claim(ClaimTypes.Role,usuarioIngresado.Rol.ToString()),

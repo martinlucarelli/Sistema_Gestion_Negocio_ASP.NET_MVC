@@ -10,8 +10,13 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Helper
             var idClaim= context.User.Claims.FirstOrDefault(c=> c.Type == ClaimTypes.NameIdentifier);
 
             return idClaim?.Value;
+        }
 
+        public static string ObtenerNegocioIdDelUsuario(HttpContext context)
+        {
+            var idClaim = context.User.Claims.FirstOrDefault(c => c.Type == "IdNegocio");
 
+            return idClaim?.Value;
         }
 
 

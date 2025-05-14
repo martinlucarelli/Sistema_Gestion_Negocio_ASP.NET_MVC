@@ -1,0 +1,156 @@
+﻿
+@{
+    ViewData["Title"] = "Productos";
+    Layout = "~/Views/Shared/_LayoutNavbar.cshtml";
+}
+
+
+
+<div>
+
+    @if (User.IsInRole("AdministradorNegocio"))
+    {
+        <button class="btn btn-primary mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarProducto">
+            Agregar producto
+        </button>
+    }
+</div>
+
+
+<div class="card">
+
+
+
+    <div class="card-body">
+
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-3">
+            <input type="text" id="inputBuscar" class="form-control me-md-2 mb-2 mb-md-0" placeholder="Buscar producto por nombre..." style="max-width: 300px;" />
+
+            <select id="selectOrdenar" class="form-select" style="max-width: 200px;">
+                <option value="nombre">Ordenar por nombre</option>
+                <option value="precio">Ordenar por precio</option>
+                <option value="stock">Ordenar por stock</option>
+            </select>
+        </div>
+
+
+
+
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Stock</th>
+                    @if (User.IsInRole("AdministradorNegocio"))
+                    {
+                        <th scope="col">Acciones</th>
+                    }
+
+
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div class="modal fade" id="modalAgregarProducto" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Agregar nuevo producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form id="formAgregarProducto">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="precio" class="form-label">Precio</label>
+                        <input type="number" class="form-control" id="precio" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="stock" class="form-label">Stock</label>
+                        <input type="number" class="form-control" id="stock" required />
+                    </div>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Confirmación de Eliminación -->
+<div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content rounded-3">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar eliminación</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <p id="mensajeConfirmacion"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="btnConfirmarEliminar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Modificar Producto -->
+<div class="modal fade" id="modalModificarProducto" tabindex="-1" aria-labelledby="modalModificarProductoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form id="formModificarProducto" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalModificarProductoLabel">Modificar Producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="idModificar" />
+
+                <div class="mb-3">
+                    <label for="nombreModificar" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreModificar" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="precioModificar" class="form-label">Precio</label>
+                    <input type="number" class="form-control" id="precioModificar" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="stockModificar" class="form-label">Stock</label>
+                    <input type="number" class="form-control" id="stockModificar" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    const negocioId = "@ViewBag.negocioId"    
+</script>
+
+<script>
+    const esAdminNegocio = @(User.IsInRole("AdministradorNegocio").ToString().ToLower());
+</script>
+
+
+
+<script src="/js/producto.js"></script>
+

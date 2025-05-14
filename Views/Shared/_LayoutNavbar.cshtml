@@ -25,9 +25,12 @@
             }
             <a asp-area="" asp-controller="Home" asp-action="EpleadoVista_Prueba">EMPLEADO</a>
             
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
+            {
+                <a asp-area="" asp-controller="Producto" asp-action="Productos">Productos</a>
+            }
             
             
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Productos</a>
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Ventas</a>
             <a asp-area="" asp-controller="Home" asp-action="Privacy">Estadísticas</a>
             <a asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar sesión</a>

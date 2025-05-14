@@ -4,16 +4,16 @@
     Layout = "~/Views/Shared/_LayoutNavBar.cshtml";
 }
 
-<div class="row">
+<div class="card mb-5">
     
-    <h1>Negocio</h1>
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 position-relative">
-                <div class="card-body">
+    <h1 class="mb-3 ms-2 px-4 py-2">Negocio</h1>
+        <div class="col-md-4 mb-4 ms-4">
+            <div class="card shadow-sm h-100 position-relative p-1 ">
+                <div class="card-body m-1">
 
                     <div class="position-absolute top-0 end-0 p-2">
-                    <a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
-                </div>
+                        <a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
+                    </div>
 
                     <h3 class="card-title mt-4">@Model.Negocio.Nombre</h3>
                     <p class="card-text">Dirección: @Model.Negocio.Direccion</p>
@@ -25,9 +25,21 @@
 </div>
 
 
-<div class="row">
+<div class="card">
 
-    <h1>Empleados</h1>
+
+
+
+    <h1 class="mb-3 ms-2 px-4 py-2">Empleados</h1>
+
+    <div>
+
+        <button class="btn btn-primary mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
+            Agregar empleado
+        </button>
+
+
+    </div>
 
     @if (TempData["SuccessMessage"] != null)
     {
@@ -42,11 +54,41 @@
         </div>
     }
 
+    <div class="card-body">
+        <div class="row">
+            @foreach (var empleado in Model.Empleados)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100 position-relative">
+                        <div class="card-body">
+
+                            <div class="position-absolute top-0 end-0 p-2">
+
+                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
+                                    Cambiar nombre
+                                </button>
+
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
+                                    Eliminar
+                                </button>
+                            </div>
+
+                            <h3 class="card-title mt-4">@empleado.Nombre</h3>
+                            <p class="card-text">Correo: @empleado.Correo</p>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+    </div>
 
 
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
-        Agregar empleado
-    </button>
+
+
+
+ 
 
 
     
@@ -96,30 +138,7 @@
 
 
 
-    @foreach(var empleado in Model.Empleados)
-    {
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 position-relative">
-                <div class="card-body">
-
-                    <div class="position-absolute top-0 end-0 p-2">
-
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
-                            Cambiar nombre
-                        </button>
-
-                        <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
-                            Eliminar
-                        </button>
-                    </div>
-
-                    <h3 class="card-title mt-4">@empleado.Nombre</h3>
-                    <p class="card-text">Correo: @empleado.Correo</p>
-                </div>
-            </div>
-        </div>
-
-    }
+   
 
 
     

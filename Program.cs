@@ -14,6 +14,9 @@ builder.Services.AddSqlServer<NegocioContext>(builder.Configuration.GetConnectio
 //EmailSettings
 builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
 
+//Inyeccion de dependencias
+
+builder.Services.AddScoped<IProductoApiService, ProductoApiService>();
 //Inyectar servicio de mail
 builder.Services.AddScoped<EmailService>();
 //Inyectar servicio de bash de clave
