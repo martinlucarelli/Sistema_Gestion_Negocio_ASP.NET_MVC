@@ -14,5 +14,9 @@
 
         //Relacion con negocio.
         public Negocio Negocio { get; set; }
+
+        //Relacion con Venta
+
+        public ICollection<Venta> ventas { get; set; }
     }
 }

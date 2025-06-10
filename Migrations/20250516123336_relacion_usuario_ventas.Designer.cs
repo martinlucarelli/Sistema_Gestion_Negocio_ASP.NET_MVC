@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
 
@@ -11,9 +12,11 @@ using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
 {
     [DbContext(typeof(NegocioContext))]
-    partial class NegocioContextModelSnapshot : ModelSnapshot
+    [Migration("20250516123336_relacion_usuario_ventas")]
+    partial class relacion_usuario_ventas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,7 +40,6 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("VentaId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("IdDetalleVenta");
@@ -94,7 +96,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                     b.Property<string>("IdProducto")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<Guid?>("NegocioId")
+                    b.Property<Guid>("NegocioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nombre")
@@ -182,20 +184,15 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                     b.Property<int>("FormaPagoId")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("NegocioId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<double>("Total")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("UsuarioId")
+                    b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("IdVenta");
 
                     b.HasIndex("FormaPagoId");
-
-                    b.HasIndex("NegocioId");
 
                     b.HasIndex("UsuarioId");
 
@@ -206,14 +203,11 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                 {
                     b.HasOne("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Producto", "producto")
                         .WithMany("detalleVentas")
-                        .HasForeignKey("ProductoId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("ProductoId");
 
                     b.HasOne("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Venta", "venta")
                         .WithMany("detalleVentas")
-                        .HasForeignKey("VentaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VentaId");
 
                     b.Navigation("producto");
 
@@ -235,7 +229,9 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                 {
                     b.HasOne("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Negocio", "Negocio")
                         .WithMany("Productos")
-                        .HasForeignKey("NegocioId");
+                        .HasForeignKey("NegocioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Negocio");
                 });
@@ -259,18 +255,13 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Negocio", "Negocio")
-                        .WithMany("ventas")
-                        .HasForeignKey("NegocioId");
-
                     b.HasOne("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Usuario", "Usuario")
                         .WithMany("ventas")
                         .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("FormaPago");
-
-                    b.Navigation("Negocio");
 
                     b.Navigation("Usuario");
                 });
@@ -285,8 +276,6 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Migrations
                     b.Navigation("Productos");
 
                     b.Navigation("Usuarios");
-
-                    b.Navigation("ventas");
                 });
 
             modelBuilder.Entity("Sistema_Gestion_Negocio_ASP.NET_MVC.Models.Producto", b =>

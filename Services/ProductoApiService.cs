@@ -30,11 +30,16 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
 
         public async Task Save(ProductoDTO nuevoProducto)
         {
+            if (nuevoProducto.Precio == null || nuevoProducto.Stock == null)
+            {
+                throw new ArgumentException("Precio y Stock son requeridos");
+            }
+               
             var producto = new Producto
             {
                 Nombre=nuevoProducto.Nombre,
-                Precio=nuevoProducto.Precio.Value,
-                Stock=nuevoProducto.Stock.Value,
+                Precio=nuevoProducto.Precio?? 0,
+                Stock=nuevoProducto.Stock?? 0,
                 NegocioId=nuevoProducto.NegocioId
             };
             

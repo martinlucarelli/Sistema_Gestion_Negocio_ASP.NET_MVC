@@ -17,6 +17,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 //Inyeccion de dependencias
 
 builder.Services.AddScoped<IProductoApiService, ProductoApiService>();
+builder.Services.AddScoped<IVentaApiService, VentaApiService>();
 //Inyectar servicio de mail
 builder.Services.AddScoped<EmailService>();
 //Inyectar servicio de bash de clave
@@ -32,6 +33,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         option.AccessDeniedPath= "/Home/Privacy"; //Si el usuario no tiene acceso a alguna vista lo dirige a privacy.
 
     });
+
+//Licencia de QuestPDF
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 
 

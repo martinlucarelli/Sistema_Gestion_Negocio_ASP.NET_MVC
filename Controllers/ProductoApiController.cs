@@ -52,6 +52,13 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ProductoDTO nuevoProducto)
         {
+            if (!ModelState.IsValid)
+            {
+               
+                var errores = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).ToList();
+                return BadRequest(new { message = "Modelo inválido", errores });
+            }
+
             await productoApiService.Save(nuevoProducto);
             return Ok(new { message = "Producto guardado con éxito" });
         }
@@ -79,8 +86,6 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             }
 
         }
-
-
 
     }
 }

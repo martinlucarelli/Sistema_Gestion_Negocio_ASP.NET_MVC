@@ -43,7 +43,8 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 - C#
 - Razor Pages
 - Bootstrap 
-- (Futuro) API REST para manejo dinámico del DOM
+- API REST
+- Javascript
 
 ---
 
@@ -52,7 +53,7 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 - Patrón MVC (Modelo-Vista-Controlador)
 - Autenticación y autorización con roles
 - Relación multi-negocio (cada negocio tiene sus usuarios, productos y ventas)
-- Generación de PDFs y exportación de datos a XLS
+- Generación de PDFs
 
 ---
 
@@ -78,7 +79,6 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 3. **Historial de ventas**
    - Filtro por fechas
    - Detalle de venta (PDF)
-   - Exportación a XLS
 4. **(Próximamente) Estadísticas con gráficos**
 
 ---
@@ -108,6 +108,11 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 
 ---
 
+## Helper
+
+
+---
+
 ## Vistas principales
 
 - **Login.cshtml**: Inicio de sesión.
@@ -123,7 +128,6 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 ## Notas de desarrollo
 
 - Se usa Guid para entidades principales y NanoId para otras tablas como Venta y Producto
-
 - Los roles están definidos mediante un enum
 - Autenticación por correo y contraseña
 - El campo Confirmado arranca en false y se activa vía token de email
@@ -131,6 +135,7 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 - Rol, al ser un enum, se convierte con fluent api en el context para que EF lo tome como int
 - Si el usuario esta 3 horas inactivo se le cierra la sesion automaticamente.
 - Se utilizan Claims para guardar informacion del usuario en una Cookie.
+- Las opereciones de los productos y las ventas se hacen a traves de una API.
 
 
 
@@ -140,13 +145,13 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 - [X] Autorizacion mediante roles del usuario, utilizando Cokies.
 - [X] Form para que un cliente pueda completar los datos de su negocio (se envia por mail).
 - [X] CRUD para que usuarios administradores de negocios registren usuarios empleados.
-- [ ] Mostrar productos en seccion Stock.
-- [ ] CRUD para productos (solo accesible para usuarios administradores de negocios).
-- [ ] Mostrar lista de ventas, posibilidad de imprimir el detalle de una venta (tipo facutra).
-- [ ] Mostrar lista de ventas especificando entre que fechas mostrar la lista, por defecto debe estar en el dia actual,pero se puede
+- [X] Mostrar productos en seccion Stock.
+- [X] CRUD para productos (solo accesible para usuarios administradores de negocios).
+- [X] Mostrar lista de ventas, posibilidad de imprimir el detalle de una venta (tipo facutra).
+- [X] Mostrar lista de ventas especificando entre que fechas mostrar la lista, por defecto debe estar en el dia actual,pero se puede
 cambiar las fechas con un calendario.
 - [ ] Descargar en formato xls la tabla con las ventas.
-- [ ] API REST para actualizar el DOM sin recargar la página
+- [X] API REST para actualizar el DOM sin recargar la página
 - [ ] Estadísticas con gráficos
 
 ## Autor

@@ -14,7 +14,13 @@
         <!-- Sidebar -->
         <nav class="sidebar">
             <h2 class="logo">Mi Panel</h2>
-            <a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
+
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
+            {
+                <a asp-area="" asp-controller="Venta" asp-action="RegistrarVenta">Registrar venta</a>
+            }
+
+            
             @if (User.IsInRole("AdministradorGeneral"))
             {
             <a asp-area="" asp-controller="Negocio" asp-action="Negocios">Negocios</a>
@@ -23,16 +29,15 @@
             {
                 <a asp-area="" asp-controller="Negocio" asp-action="MiNegocio">Mi negocio</a>
             }
-            <a asp-area="" asp-controller="Home" asp-action="EpleadoVista_Prueba">EMPLEADO</a>
+            
             
             @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
             {
                 <a asp-area="" asp-controller="Producto" asp-action="Productos">Productos</a>
+                <a asp-area="" asp-controller="Venta" asp-action="Ventas">Ventas</a>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Estadísticas</a>
             }
-            
-            
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Ventas</a>
-            <a asp-area="" asp-controller="Home" asp-action="Privacy">Estadísticas</a>
+           
             <a asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar sesión</a>
         </nav>
 

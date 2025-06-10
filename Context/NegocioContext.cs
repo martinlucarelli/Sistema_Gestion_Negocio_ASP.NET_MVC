@@ -37,7 +37,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Context
                 usuario.Property(u => u.Rol).IsRequired();
                 usuario.Property(u => u.Rol).HasConversion<int>(); //Convierte el enum en entero para que lo entienda EF
                 //NegocioID (FK)
-                usuario.HasOne(u=> u.Negocio).WithMany(neg=> neg.Usuarios).HasForeignKey(u=> u.NegocioId);
+                usuario.HasOne(u=> u.Negocio).WithMany(neg=> neg.Usuarios).HasForeignKey(u=> u.NegocioId).OnDelete(DeleteBehavior.Restrict);
 
             });
 
@@ -67,7 +67,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Context
                 //Stock
                 producto.Property(p => p.Stock).IsRequired();
                 //negocioId (FK)
-                producto.HasOne(p=> p.Negocio).WithMany(neg=>neg.Productos).HasForeignKey(p=>p.NegocioId);
+                producto.HasOne(p=> p.Negocio).WithMany(neg=>neg.Productos).HasForeignKey(p=>p.NegocioId).OnDelete(DeleteBehavior.Restrict);
             
             });
 
@@ -81,7 +81,11 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Context
                 //Total
                 venta.Property(v => v.Total).IsRequired();
                 //FormaPagoId (FK)
-                venta.HasOne(v=> v.FormaPago).WithMany(formPag=> formPag.ventas).HasForeignKey(v=> v.FormaPagoId);    
+                venta.HasOne(v=> v.FormaPago).WithMany(formPag=> formPag.ventas).HasForeignKey(v=> v.FormaPagoId);
+                //UsuarioId (FK)
+                venta.HasOne(v => v.Usuario).WithMany(user => user.ventas).HasForeignKey(v => v.UsuarioId).OnDelete(DeleteBehavior.SetNull); //DeleteBehavior asegura que si se ellimina
+                //NegocioId (FK)                                                                                                            //un usuario, las ventas de ese usuario seguiran con usuarioId = null.
+                venta.HasOne(v => v.Negocio).WithMany(neg => neg.ventas).HasForeignKey(v => v.NegocioId).OnDelete(DeleteBehavior.Restrict);
 
             });
 
@@ -96,8 +100,8 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Context
                 detVent.Property(detVent => detVent.Subtotal).IsRequired();
                 //VentaId (FK)
                 detVent.HasOne(detVent=>detVent.venta).WithMany(vent=>vent.detalleVentas).HasForeignKey(detVent=> detVent.VentaId);
-                //ProductoId (FK)
-                detVent.HasOne(detVent => detVent.producto).WithMany(prod => prod.detalleVentas).HasForeignKey(detVent => detVent.ProductoId);
+                //ProductoId (FK)                                                                                               DeleteBeHavior permite que si se elimina un producto, la venta siga registrada con idPorducto = null
+                detVent.HasOne(detVent => detVent.producto).WithMany(prod => prod.detalleVentas).HasForeignKey(detVent => detVent.ProductoId).OnDelete(DeleteBehavior.SetNull);
 
             });
 

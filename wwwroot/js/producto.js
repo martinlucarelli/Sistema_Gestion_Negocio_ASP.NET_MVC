@@ -17,7 +17,6 @@ function OcultarColumnaAEmpleados() {
     }
 }
 
-
 let productos = []; 
 function cargarProductos() {
     fetch(`/ProductoApi/${negocioId}`)
@@ -93,7 +92,10 @@ document.addEventListener("DOMContentLoaded", function () {
             negocioId: negocioId
         };
 
-        fetch("/ProductoApi", {
+        console.log("Producto a enviar:", producto);
+        console.log("JSON:", JSON.stringify(producto));
+
+        fetch(`/ProductoApi`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
