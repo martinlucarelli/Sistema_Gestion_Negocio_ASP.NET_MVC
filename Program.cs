@@ -18,6 +18,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("Emai
 
 builder.Services.AddScoped<IProductoApiService, ProductoApiService>();
 builder.Services.AddScoped<IVentaApiService, VentaApiService>();
+builder.Services.AddScoped<IEstadisticaApiService, EstadisticaApiService>();
 //Inyectar servicio de mail
 builder.Services.AddScoped<EmailService>();
 //Inyectar servicio de bash de clave

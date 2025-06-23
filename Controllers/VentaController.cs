@@ -8,9 +8,9 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
     {
 
         NegocioContext context;
-        public ILogger<LoginController> logger;
+        public ILogger<VentaController> logger;
 
-        public VentaController(NegocioContext _context, ILogger<LoginController> _logger)
+        public VentaController(NegocioContext _context, ILogger<VentaController> _logger)
         {
             context = _context;
             logger = _logger;

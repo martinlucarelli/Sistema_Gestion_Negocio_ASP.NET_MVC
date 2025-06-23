@@ -252,6 +252,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
             if(!ModelState.IsValid) 
             {
+                negocioEditar.rubros = context.Rubros.ToList();
                 ViewBag.negocioId= idNegocio;
                 return View(negocioEditar);
             }

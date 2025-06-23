@@ -83,6 +83,8 @@ function renderDetalle() {
     });
 
     document.getElementById("totalVenta").textContent = total.toFixed(2);
+    document.getElementById("btnConfirmarVenta").disabled = detalleVenta.length === 0;
+
 }
 
 function eliminarDetalle(index) {
@@ -100,6 +102,12 @@ function confirmarVenta() {
     const formaPagoId = document.getElementById("formaPagoSelect").value;
     if (!formaPagoId) {
         alert("Seleccione una forma de pago.");
+        return;
+    }
+
+    if (detalleVenta.length === 0) {
+
+        alert("Debe agregar al menos un producto a la venta.")
         return;
     }
 

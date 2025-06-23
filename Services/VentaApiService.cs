@@ -128,6 +128,10 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
                     ProductoId = detalleDeVenta.ProductoId
                 };
 
+                var prod = context.Productos.FirstOrDefault(p => p.IdProducto == detalleVenta.ProductoId);
+                prod.Stock = prod.Stock - detalleVenta.CantidadProductos;
+                context.Productos.Update(prod);
+
                 context.DetalleVentas.Add(detalleVenta);
             }
 
