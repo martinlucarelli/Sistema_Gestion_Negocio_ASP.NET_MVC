@@ -3,21 +3,25 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Sistema_Gestion_Negocio_ASP.NET_MVC</title>
+    <title>@ViewData["Title"] - NegociApp</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Sistema_Gestion_Negocio_ASP.NET_MVC.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/EstiloNavbar.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div class="navBarContainer">
         <!-- Sidebar -->
         <nav class="sidebar">
-            <h2 class="logo">Mi Panel</h2>
+            <div class="logoContainer">
+                <img class="img-logo" src="~/img/NegociAppLogoTransparente.png" />
+            </div>
+            
 
             @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
             {
-                <a asp-area="" asp-controller="Venta" asp-action="RegistrarVenta">Registrar venta</a>
+                <a asp-area="" asp-controller="Venta" asp-action="RegistrarVenta"><i class="bi bi-cart-plus fs-4"></i> Registrar venta</a>
             }
 
             
@@ -27,18 +31,18 @@
             }
             @if (User.IsInRole("AdministradorNegocio"))
             {
-                <a asp-area="" asp-controller="Negocio" asp-action="MiNegocio">Mi negocio</a>
+                <a asp-area="" asp-controller="Negocio" asp-action="MiNegocio"><i class="bi bi-shop-window fs-4"></i> Mi negocio</a>
             }
             
             
             @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
             {
-                <a asp-area="" asp-controller="Producto" asp-action="Productos">Productos</a>
-                <a asp-area="" asp-controller="Venta" asp-action="Ventas">Ventas</a>
-                <a asp-area="" asp-controller="Estadisticas" asp-action="mostrarEstadisticas">Estadísticas</a>
+                <a asp-area="" asp-controller="Producto" asp-action="Productos"><i class="bi bi-tags fs-4"></i> Productos</a>
+                <a asp-area="" asp-controller="Venta" asp-action="Ventas"><i class="bi bi-currency-dollar fs-4"></i> Ventas</a>
+                <a asp-area="" asp-controller="Estadisticas" asp-action="mostrarEstadisticas"><i class="bi bi-graph-up fs-4"></i> Estadísticas</a>
             }
            
-            <a asp-area="" asp-controller="Login" asp-action="CerrarSesion">Cerrar sesión</a>
+            <a class="cerrar-sesion" asp-area="" asp-controller="Login" asp-action="CerrarSesion"><i class="bi bi-box-arrow-right fs-4"></i> Cerrar sesión</a>
         </nav>
 
         <!-- Contenido principal y footer -->

@@ -12,7 +12,7 @@
                 <div class="card-body m-1">
 
                     <div class="position-absolute top-0 end-0 p-2">
-                        <a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-controller="Negocio" asp-action="EditarNegocio" asp-route-idNegocio="@Model.Negocio.IdNegocio" title="Editar negocio" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i></a>
                     </div>
 
                     <h3 class="card-title mt-4">@Model.Negocio.Nombre</h3>
@@ -64,12 +64,12 @@
 
                             <div class="position-absolute top-0 end-0 p-2">
 
-                                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
-                                    Cambiar nombre
+                                <button title="Cambiar nombre" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
+                                    <i class="bi bi-pencil-square"></i>
                                 </button>
 
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
-                                    Eliminar
+                                <button title="Eliminar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
+                                    <i class="bi bi-trash-fill"></i>
                                 </button>
                             </div>
 

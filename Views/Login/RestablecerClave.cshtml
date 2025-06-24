@@ -4,23 +4,37 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<h2>Restablecer Contraseña</h2>
+<div class="login-container">
 
-<form asp-action="RestablecerClave" method="post">
-    <input type="hidden" asp-for="Token" />
+    <div class="login-box">
 
-    <div class="form-group">
-        <label for="NuevaContraseña">Nueva Contraseña</label>
-        <input asp-for="NuevaClave" class="form-control" type="password" id="nuevaContraseña" />
-        <span asp-validation-for="NuevaClave" class="text-danger"></span>
+        <div class="img-container">
+            <img class="logo-login" src="~/img/NegociAppLogoNegro.png" />
+        </div>
+        
+        <h3>Restablecer Contraseña</h3>
+
+        <form asp-action="RestablecerClave" method="post">
+            <input type="hidden" asp-for="Token" />
+
+            <div class="form-group">
+                <label for="NuevaContraseña">Nueva Contraseña</label>
+                <input asp-for="NuevaClave" class="form-control" type="password" id="nuevaContraseña" />
+                <span asp-validation-for="NuevaClave" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="ConfirmarContraseña">Confirmar Contraseña</label>
+                <input asp-for="ConfirmarClave" class="form-control" type="password" id="confirmarContraseña" />
+                <span asp-validation-for="ConfirmarClave" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-login">Guardar Nueva Contraseña</button>
+        </form>
+
     </div>
 
-    <div class="form-group">
-        <label for="ConfirmarContraseña">Confirmar Contraseña</label>
-        <input asp-for="ConfirmarClave" class="form-control" type="password" id="confirmarContraseña" />
-        <span asp-validation-for="ConfirmarClave" class="text-danger"></span>
-    </div>
+</div>
 
-    <button type="submit" class="btn btn-primary">Guardar Nueva Contraseña</button>
-</form>
+
 

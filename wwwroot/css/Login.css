@@ -1,8 +1,9 @@
-﻿body {
+﻿.login-body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f2f2f2;
+    background-color: #673AB7;
+    min-height: 100vh;
 }
 
 .login-container {
@@ -16,19 +17,40 @@
     background-color: white;
     padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 400px;
+    text-align: center;
 }
 
+.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+    .login-box .logo-login{
+        width: auto;
+        height:180px;
+        object-fit: contain;
+        padding-bottom:15px;
+    }
+
     .login-box h2 {
-        text-align: center;
         margin-bottom: 1.5rem;
-        color: #333;
+        color: #673AB7;
+    }
+    .login-box h3 {
+        margin-bottom: 1.5rem;
+        color: #673AB7;
     }
 
 .form-group {
     margin-bottom: 1rem;
+    text-align: left;
 }
 
     .form-group label {
@@ -48,7 +70,7 @@
 .btn-login {
     width: 100%;
     padding: 0.7rem;
-    background-color: #007bff;
+    background-color: #673AB7;
     color: white;
     font-size: 1rem;
     border: none;
@@ -58,25 +80,25 @@
 }
 
     .btn-login:hover {
-        background-color: #0056b3;
+        background-color: #5a2ea6;
     }
 
 .extra-links {
     margin-top: 1rem;
-    text-align: center;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
     .extra-links a {
-        color: #007bff;
+        color: #673AB7;
         text-decoration: none;
         font-size: 0.9rem;
     }
 
         .extra-links a:hover {
             text-decoration: underline;
+            color: #5a2ea6;
         }
 
 .error-message {

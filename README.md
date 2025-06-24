@@ -22,16 +22,15 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## PROXIMO A HACER:
 
-- Lo proximo a realizar es la vista que va mostrar todos los productos que perteneces a un negocio, para esto
-voy a utilizar Jquery datatables que me va a permitir realizar la paginacion,ordenar columnas y buscar en tiempo
-real.
-- Para realizar la vista de productos se va a utilar una API , la api se va a crear dentro del mismo proyecto, y tambien
-utilizara la carpeta controller, pero la logica va a estar dentro de la carpeta service, de esta manera aplicamos la inyeccin
-de dependencias. Por lo tanto todo lo que este relacionado con los productos, tanto ver la lista o realizar operaciones, van
-a pasar por la API interna del sistema, si combinamos la api con Fetch (JAVASCRIPT) nos va a permitir que cuando se realice 
-alguna opéracion no va a ser necesario recargar la pagina para que se muestren esos cambios.
+- Agregar iconos a las funcionalidades de agregar, modificar o eliminar.
+- Agregar iconos a los menus (mi negocio, ventas, productos).
+- Agregar en la parte superior derecha, de todas las vistas (en el shared) informacion del usuario en sesion.
+- Cambiar el "mi panel" por el nombre del sistema
+- Colocar una vista al iniciar la aplicacion, esta vista debe contner el nombre del sistema, alguna imagen, informacion y la
+posibilidad de que inicien sesion los usuarios.
+- Permitir que se registre un negocio desde la vista principal.
 
-
+4a2861
 
 
 
@@ -79,7 +78,7 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 3. **Historial de ventas**
    - Filtro por fechas
    - Detalle de venta (PDF)
-4. **(Próximamente) Estadísticas con gráficos**
+4. **Estadísticas con gráficos**
 
 ---
 
@@ -136,6 +135,7 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 - Si el usuario esta 3 horas inactivo se le cierra la sesion automaticamente.
 - Se utilizan Claims para guardar informacion del usuario en una Cookie.
 - Las opereciones de los productos y las ventas se hacen a traves de una API.
+- Se utiliza Chart.js para manejar las estadisticas y graficos.
 
 
 
@@ -152,7 +152,7 @@ alguna opéracion no va a ser necesario recargar la pagina para que se muestren e
 cambiar las fechas con un calendario.
 - [ ] Descargar en formato xls la tabla con las ventas.
 - [X] API REST para actualizar el DOM sin recargar la página
-- [ ] Estadísticas con gráficos
+- [X] Estadísticas con gráficos
 
 ## Autor
 

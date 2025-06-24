@@ -48,7 +48,7 @@ function cargarVentas(desde, hasta) {
                         <td>${nombreUsuario}</td>
                         <td> 
                               <a href="/VentaApi/factura/${venta.idVenta}" target="_blank" class="btn btn-sm btn-secondary">
-                                 Ver factura
+                                 <i class="bi bi-eye"></i> Ver factura
                              </a>
                         
                         </td>

@@ -64,8 +64,8 @@ function mostrarProductos(lista) {
                     <td>${item.precio}</td>
                     <td>${item.stock}</td>
                     <td>
-                         <button class="btn btn-sm btn-primary me-2" onclick="modificarProducto('${item.idProducto}')">Modificar</button>
-                         <button class="btn btn-sm btn-danger" onclick="eliminarProducto('${item.idProducto}', '${nombreSanitizado}')">Eliminar</button>
+                         <button class="btn btn-sm btn-primary me-2" onclick="modificarProducto('${item.idProducto}')"><i class="bi bi-pencil-square"></i> Modificar</button>
+                         <button class="btn btn-sm btn-danger" onclick="eliminarProducto('${item.idProducto}', '${nombreSanitizado}')"><i class="bi bi-trash"></i> Eliminar</button>
                     </td>
                 `;
 
