@@ -61,11 +61,24 @@ function cargarVentas(desde, hasta) {
             const resumenDiv = document.getElementById("resumenVentas");
             resumenDiv.innerHTML = "<h5>Resumen</h5>";
 
+            let resumenHtml = '<h5>Resumen</h5><div class="resumen-grid">';
+
             data.resumenPorFormaPago.forEach(r => {
-                resumenDiv.innerHTML += `<p><strong>${r.formaPago}:</strong> $${r.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }</p>`;
+                resumenHtml += `
+                 <div class="resumen-card">
+                    <p class="mb-1"><strong>${r.formaPago}</strong></p>
+                    <p class="mb-0">$${r.total.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                </div>`;
             });
 
-            resumenDiv.innerHTML += `<p><strong>Total general:</strong> $${data.totalGeneral.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }</p>`;
+            resumenHtml += `
+                <div class="resumen-card resumen-total">
+                    <p class="mb-1"><strong>Total general</strong></p>
+                    <p class="mb-0">$${data.totalGeneral.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                </div>
+            </div>`;
+
+            resumenDiv.innerHTML = resumenHtml;
         })
         .catch(err => {
             console.error("Error al obtener ventas:", err);

@@ -39,7 +39,7 @@ function cargarEstadisticas(tiempo) {
                 data.gananciasPorPeriodo.map(x => x.periodo),
                 data.gananciasPorPeriodo.map(x => x.valor),
                 "Ganancias",
-                "rgba(153, 102, 255, 0.7)"
+                "rgba(76, 175, 80, 0.6)"
             );
 
             chartProductos = crearGrafico(
@@ -48,7 +48,7 @@ function cargarEstadisticas(tiempo) {
                 data.productosMasVendidos.map(x => x.nombre),
                 data.productosMasVendidos.map(x => x.cantidadVendida),
                 "Productos más vendidos",
-                ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff']
+                ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#FF6F61 ']
             );
 
             chartFormasDePago = crearGrafico(
@@ -57,7 +57,7 @@ function cargarEstadisticas(tiempo) {
                 data.formasDePago.map(x => x.metodo),
                 data.formasDePago.map(x => x.cantidad),
                 "Formas de pago",
-                ['#ff9f40', '#ffcd56', '#4bc0c0', '#36a2eb']
+                ['#00796B', '#FBC02D', '#1976D2', '#D32F2F']
             );
         })
         .catch(error => console.error("Error al cargar estadísticas:", error));

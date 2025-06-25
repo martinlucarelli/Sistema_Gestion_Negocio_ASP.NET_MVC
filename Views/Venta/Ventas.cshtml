@@ -5,40 +5,40 @@
 }
 
 
-<div class="card">
+<div class="card card-ventas-wrapper">
 
+    <div class="filtro-fechas mb-3 px-3 pt-3">
+        <label for="desde" class="me-2">Desde:</label>
+        <input type="date" id="desde" class="form-control form-control-fecha me-3" />
 
-    <div class="mb-3">
-        <label>Desde: <input type="date" id="desde" /></label>
-        <label>Hasta: <input type="date" id="hasta" /></label>
-        <button id="btnFiltrar" class="btn btn-primary">Filtrar</button>
+        <label for="hasta" class="me-2">Hasta:</label>
+        <input type="date" id="hasta" class="form-control form-control-fecha me-3" />
+
+        <button id="btnFiltrar" class="btn btn-primary btn-filtrar">Filtrar</button>
     </div>
-
 
     <div class="card-body">
 
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Forma de pago</th>
-                    <th scope="col">Usuario</th>
-                    <th scope="col"> </th>
-                    
-
+                    <th>#</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Forma de pago</th>
+                    <th>Usuario</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
             </tbody>
         </table>
 
-        <div id="resumenVentas" class="mt-3"></div>
-
+        <div id="resumenVentas" class="resumen-ventas mt-4 px-3 pb-3"></div>
 
     </div>
 </div>
+
 
 <script src="/js/mostrarVentas.js" "></script>
 <script>

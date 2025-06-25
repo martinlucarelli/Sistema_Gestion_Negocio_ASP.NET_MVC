@@ -22,15 +22,14 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 
 ## PROXIMO A HACER:
 
-- Agregar iconos a las funcionalidades de agregar, modificar o eliminar.
-- Agregar iconos a los menus (mi negocio, ventas, productos).
+- Achicar el panel de registrar venta y mejorar estilos
+- Mejorar el estilo de las vistas en general (agregarle color de la aplicacion, bordes, tamaños)
 - Agregar en la parte superior derecha, de todas las vistas (en el shared) informacion del usuario en sesion.
-- Cambiar el "mi panel" por el nombre del sistema
 - Colocar una vista al iniciar la aplicacion, esta vista debe contner el nombre del sistema, alguna imagen, informacion y la
 posibilidad de que inicien sesion los usuarios.
 - Permitir que se registre un negocio desde la vista principal.
 
-4a2861
+
 
 
 

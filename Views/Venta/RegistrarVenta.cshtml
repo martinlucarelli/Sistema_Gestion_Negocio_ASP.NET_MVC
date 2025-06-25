@@ -4,59 +4,65 @@
     Layout = "~/Views/Shared/_LayoutNavbar.cshtml";
 }
 
-<div class="card p-3 mb-3">
-    <div class="row g-2 align-items-end">
-        <div class="col-md-6">
-            <label for="busquedaProducto" class="form-label">Buscar producto</label>
-            <input type="text" id="busquedaProducto" class="form-control" placeholder="Ej: Coca, Pan, etc.">
+<div class="venta-wrapper">
+    <div class="venta-container">
+        <div class="card p-3 mb-3 seccion-producto">
+            <div class="row g-2 align-items-end">
+                <div class="col-md-6">
+                    <label for="busquedaProducto" class="form-label">Buscar producto</label>
+                    <input type="text" id="busquedaProducto" class="form-control" placeholder="Ej: Coca, Pan, etc.">
+                </div>
+                <div class="col-md-3">
+                    <label for="cantidadInput" class="form-label">Cantidad</label>
+                    <input type="number" id="cantidadInput" class="form-control" min="1" value="1" />
+                </div>
+                <div class="col-md-3">
+                    <button id="btnAgregarDetalle" class="btn btn-success w-100" disabled>Agregar</button>
+                </div>
+            </div>
+
+            <div id="resultadosBusqueda" class="mt-2"></div>
         </div>
-        <div class="col-md-3">
-            <label for="cantidadInput" class="form-label">Cantidad</label>
-            <input type="number" id="cantidadInput" class="form-control" min="1" value="1" />
+
+        <div class="tabla-detalle">
+            <table class="table table-bordered" id="tablaDetalleVenta">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Se llena dinámicamente -->
+                </tbody>
+            </table>
         </div>
-        <div class="col-md-3">
-            <button id="btnAgregarDetalle" class="btn btn-success w-100" disabled>Agregar</button>
+
+        <div class="mt-3">
+            <label for="formaPagoSelect" class="form-label">Forma de pago</label>
+            <select id="formaPagoSelect" class="form-select" required>
+                <option value="">Seleccione una forma de pago</option>
+                @foreach (var forma in ViewBag.formasDePago)
+                {
+                    <option value="@forma.IdFormaPago">@forma.TipoFormaPago</option>
+                }
+            </select>
+        </div>
+
+        <div class="total-confirmar d-flex justify-content-between align-items-center mt-4">
+            <h5>Total: $<span id="totalVenta">0.00</span></h5>
+            <button id="btnConfirmarVenta" class="btn btn-violeta" disabled>Confirmar venta</button>
         </div>
     </div>
 
-    <!-- Productos filtrados -->
-    <div id="resultadosBusqueda" class="mt-2"></div>
-</div>
-
-<!-- Lista de productos agregados -->
-<table class="table table-bordered" id="tablaDetalleVenta">
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Precio unitario</th>
-            <th>Cantidad</th>
-            <th>Subtotal</th>
-            <th>Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Se llena dinámicamente -->
-    </tbody>
-</table>
-
-
-<div class="mt-3">
-    <label for="formaPagoSelect" class="form-label">Forma de pago</label>
-    <select id="formaPagoSelect" class="form-select" required>
-        <option value="">Seleccione una forma de pago</option>
-        @foreach (var forma in ViewBag.formasDePago)
-        {
-            <option value="@forma.IdFormaPago">@forma.TipoFormaPago</option>
-        }
-    </select>
 </div>
 
 
-<!-- Total + Confirmar -->
-<div class="d-flex justify-content-between align-items-center">
-    <h5>Total: $<span id="totalVenta">0.00</span></h5>
-    <button id="btnConfirmarVenta" class="btn btn-primary" disabled>Confirmar venta</button>
-</div>
+
+
 
 
 

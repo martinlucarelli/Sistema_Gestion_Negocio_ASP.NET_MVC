@@ -1,0 +1,43 @@
+﻿.productos-wrapper {
+
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+    .productos-wrapper .table-hover tbody tr:hover {
+        background-color: rgba(103, 58, 183, 0.05);
+        cursor: pointer;
+    }
+
+
+    .productos-wrapper .card.shadow {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border-radius: 8px;
+    }
+
+    .productos-wrapper .modal-header {
+        background-color: #673AB7;
+    }
+    .productos-wrapper .modal-title{
+
+        font-weight:700;
+        color:white;
+    }
+
+    #inputBuscar,
+    #selectOrdenar {
+        min-height: 42px;
+        font-size: 0.95rem;
+    }
+
+.btn-agregar-producto {
+    margin: 10px 0 0 15px;
+    background-color: #673AB7;
+    border:none;
+    color:white;
+    width:180px;
+    height:50px;
+    border-radius: 5px;
+}

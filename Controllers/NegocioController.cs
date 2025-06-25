@@ -230,12 +230,18 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
                 return NotFound();
             }
 
+            var listaRubros = context.Rubros.ToList();
+
+            var rubroEliminar = listaRubros.FirstOrDefault(r => r.IdRubro == 1000);
+
+            listaRubros.Remove(rubroEliminar);
+
             var negocioModel = new NegocioViewModel
             {
                 nombre = negocio.Nombre,
                 direccion = negocio.Direccion,
                 rubroId = negocio.RubroId,
-                rubros = context.Rubros.ToList()
+                rubros = listaRubros
             };
 
             ViewBag.negocioId = idNegocio;

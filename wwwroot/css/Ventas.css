@@ -1,0 +1,105 @@
+﻿.card-ventas-wrapper {
+    background-color: #f4f6fa;
+    padding: 30px 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+}
+
+/* Estilo para contenedor de filtros */
+.filtro-fechas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Inputs de fecha */
+.form-control-fecha {
+    min-width: 160px;
+    max-width: 200px;
+}
+
+/* Botón Filtrar */
+.btn-filtrar {
+    min-width: 100px;
+    font-weight: 500;
+}
+
+/* Estilo del resumen */
+.resumen-ventas {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(103, 58, 183, 0.08);
+}
+
+    .resumen-ventas h5 {
+        color: #673AB7;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    .resumen-ventas p {
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+
+.resumen-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.resumen-card {
+    flex: 1 1 200px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(103, 58, 183, 0.08);
+    transition: transform 0.2s ease;
+}
+
+    .resumen-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 14px rgba(103, 58, 183, 0.12);
+    }
+
+.resumen-total {
+    background-color: #dcd0f0;
+    border-color: #d1c4e9;
+}
+
+.resumen-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+/* Animación sutil en hover */
+.table-hover tbody tr:hover {
+    background-color: rgba(103, 58, 183, 0.05);
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .filtro-fechas {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-control-fecha {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .btn-filtrar {
+        width: 100%;
+    }
+}

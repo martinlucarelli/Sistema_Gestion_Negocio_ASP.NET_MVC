@@ -1,0 +1,42 @@
+﻿.venta-wrapper {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    margin-top: 40px;
+    
+    max-width:900px;
+    margin: 40px auto;
+}
+
+
+.venta-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.seccion-producto {
+    background-color: #fdfdff;
+    border: 1px solid #ddd;
+}
+
+.tabla-detalle {
+    margin-top: 20px;
+}
+
+.btn-violeta {
+    background-color: #673AB7;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-violeta:hover {
+        background-color: #512DA8;
+    }
+
+.total-confirmar h5 {
+    font-size: 1.25rem;
+    color: #333;
+}
