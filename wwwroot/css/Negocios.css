@@ -1,0 +1,43 @@
+﻿/* Animación hover en las cards */
+.negocio-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+    background-color: #ffffff;
+}
+
+    .negocio-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        border-color: #c2b8f3;
+    }
+
+/* Modal */
+.modalUsuariosDeNegocio .modal-header {
+    background-color: #673AB7;
+}
+
+.modalUsuariosDeNegocio .modal-title {
+    color: white;
+    font-weight: 600;
+}
+
+.rolUsuario {
+    background-color: #673AB7;
+}
+
+/* Botón "Usuarios vinculados" */
+.btn-usuarios-vinculados {
+    transition: all 0.2s ease-in-out;
+    border-radius: 20px;
+}
+
+    .btn-usuarios-vinculados:hover {
+        background-color: #673AB7;
+        color: white;
+    }
+
+    /* Icono con margen */
+    .btn-usuarios-vinculados i {
+        margin-right: 4px;
+    }

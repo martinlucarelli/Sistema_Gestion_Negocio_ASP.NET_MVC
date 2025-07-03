@@ -1,61 +1,90 @@
 ﻿body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #f2f2f2;
+
+    background-color: #673AB7 !important;
+
 }
 
-.registro-container {
+.registro-adminNeg-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-.registro-box {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    width: 100%;
-    max-width: 400px;
-}
-    .registro-box h2 {
+    .registro-adminNeg-container .registro-box {
+        background-color: white;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px rgba(103, 58, 183, 0.2);
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .registro-adminNeg-container .img-container {
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 20px;
+    }
+
+    .registro-adminNeg-container .logo-login {
+        max-width: 150px;
+    }
+
+    .registro-adminNeg-container h2 {
+        text-align: center;
+        color: #673AB7;
+        margin-bottom: 25px;
+        font-weight: 600;
+    }
+
+    .registro-adminNeg-container .form-group {
+        margin-bottom: 20px;
+    }
+
+    .registro-adminNeg-container label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 500;
         color: #333;
     }
 
-.form-group {
-    margin-bottom: 1rem;
-}
-
-    .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-        color: #555;
-    }
-
-    .form-group input {
+    .registro-adminNeg-container input[type="text"],
+    .registro-adminNeg-container input[type="email"],
+    .registro-adminNeg-container input[type="password"] {
         width: 100%;
-        padding: 0.5rem;
-        border-radius: 6px;
+        padding: 10px 12px;
         border: 1px solid #ccc;
-        font-size: 1rem;
+        border-radius: 8px;
+        outline: none;
+        transition: border 0.3s ease;
     }
 
-.btn-continuar {
-    width: 100%;
-    padding: 0.7rem;
-    background-color: #007bff;
-    color: white;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+    .registro-adminNeg-container input:focus {
+        border-color: #7e57c2;
+        box-shadow: 0 0 0 2px rgba(126, 87, 194, 0.2);
+    }
 
-.btn-continuar:hover {
-    background-color: #0056b3;
-}
+    .registro-adminNeg-container .text-danger {
+        font-size: 0.875rem;
+        color: #e53935;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .registro-adminNeg-container .btn-continuar {
+        width: 100%;
+        padding: 12px;
+        background-color: #673AB7;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+    }
+
+        .registro-adminNeg-container .btn-continuar:hover {
+            background-color: #5e35b1;
+            cursor: pointer;
+        }

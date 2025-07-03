@@ -1,11 +1,16 @@
 ﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.UsuarioViewModel
 @{
-    ViewData["Title"] = "RegistrarAdministradorNegocio";
+    ViewData["Title"] = "Registrar usuario admin";
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="registro-container">
+<div class="registro-adminNeg-container">
     <div class="registro-box">
+
+        <div class="img-container">
+            <img class="logo-login" src="~/img/NegociAppLogoNegro.png" />
+        </div>
+        
         <h2>Registrar usuario</h2>
 
         <form method="post" asp-action="RegistrarAdministradorNegocio" asp-controller="Negocio">

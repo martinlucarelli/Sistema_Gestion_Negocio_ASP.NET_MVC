@@ -4,12 +4,14 @@
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
 
-<div class="alert-success" role="alert">
-
-    <h2>¡Tu negocio fue registrado con exito !</h2>
-    <p>Felicitaciones! tu negocio ya forma parte de nuestro sistema, inicia sesion y comenza a disfrutar el servicio.</p>
-    <a asp-action="Login" asp-controller="Login" class="btn btn-primary">Registrar negocio</a>
 
 
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="card shadow p-4 text-center" style="max-width: 600px; width: 100%;">
+        <h2 class="mb-3 text-success">¡Tu negocio fue registrado con exito !</h2>
+        <p>Felicitaciones! tu negocio ya forma parte de nuestro sistema, inicia sesion y comenza a disfrutar el servicio.</p>
+        <a asp-action="Login" asp-controller="Login" class="btn btn-primary" style="background-color:#673AB7">Continuar</a>
+    </div>
 </div>
 

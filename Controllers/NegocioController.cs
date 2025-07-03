@@ -8,6 +8,7 @@ using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Helper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 {
@@ -31,8 +32,10 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
         }
 
+        [Authorize(Roles = "AdministradorGeneral")]
         public IActionResult Negocios()
         {
+
             var negocioConRubro = context.Negocios.Join(context.Rubros,
                 negocio => negocio.RubroId,
                 rubro => rubro.IdRubro,
@@ -45,15 +48,20 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
                 })
                 .ToList();
-               
+
+            string idNegocio = UsuarioHelper.ObtenerNegocioIdDelUsuario(HttpContext);
+            ViewBag.idNegocio = idNegocio;
+
             return View(negocioConRubro);
         }
 
+        [Authorize(Roles = "AdministradorGeneral")]
         public IActionResult AgregarNegocio()
         {
             return View();
         }
 
+        [Authorize(Roles = "AdministradorGeneral")]
         [HttpPost]
         public async Task<IActionResult> AgregarNegocio(string correo)
         {
@@ -113,7 +121,8 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
                 return View(user);
             }
 
-            if (context.Usuarios.Any(u => u.Correo == user.correo))
+            var auxUsuario = context.Usuarios.FirstOrDefault(u => u.Correo == user.correo);
+            if (auxUsuario.Confirmado == true)
             {
                 ModelState.AddModelError("correo", "Ya existe un usuario registrado con ese correo");
                 return View(user);
@@ -149,9 +158,15 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             var usuario = context.Usuarios.FirstOrDefault(u => u.TokenConfirmacion == token);
             if (usuario == null) return NotFound();
 
+            var listaRubros = context.Rubros.ToList();
+
+            var rubroEliminar = listaRubros.FirstOrDefault(r => r.IdRubro == 1000);
+
+            listaRubros.Remove(rubroEliminar);
+
             var modelo = new NegocioViewModel
             {
-                rubros = context.Rubros.ToList(),
+                rubros = listaRubros,
                 tokenUsuario = token
             };
 
@@ -191,6 +206,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         public IActionResult AdminNegocioRegistradoConExito(){ return View();}
         public IActionResult NegocioRegistradoConExito() { return View(); }
 
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
         public IActionResult MiNegocio() 
         {
             string usuarioId = UsuarioHelper.ObtenerUsuarioId(HttpContext);
@@ -219,6 +235,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View(modelo); 
         }
 
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
         [HttpGet]
         public IActionResult EditarNegocio(string idNegocio)
         {
@@ -249,6 +266,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View(negocioModel);
         }
 
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
         [HttpPost]
         public IActionResult EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)
         {

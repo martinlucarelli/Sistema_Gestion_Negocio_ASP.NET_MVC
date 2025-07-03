@@ -6,8 +6,7 @@
 
 
 <div class="mb-4 mt-2 ps-2">
-
-    <a asp-controller="Negocio" asp-action="AgregarNegocio" class="btn btn-success">Nuevo negocio</a>
+    <a asp-controller="Negocio" asp-action="AgregarNegocio" class="btn btn-success"><i class="bi bi-plus-circle"></i> Nuevo negocio</a>
 </div>
 
 <hr class="mb-4" />
@@ -16,25 +15,59 @@
     @foreach (var negocio in Model)
     {
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 position-relative">
-                <div class="card-body">
-                    
+            <div class="card negocio-card shadow-sm h-100 position-relative transition-hover">
+                <div class="card-body p-4">
+
                     <div class="position-absolute top-0 end-0 p-2">
-                        <a asp-controller="Negocios" asp-action="ModificarNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-sm btn-warning">Editar</a>
-                        <a asp-controller="Negocios" asp-action="EliminarNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-sm btn-danger">Eliminar</a>
+                        <button class="btn btn-sm btn-danger btn-abrir-modal-eliminar" data-id="@negocio.IdNegocio" data-nombre="@negocio.Nombre">Eliminar</button>
                     </div>
 
-                    <h3 class="card-title mt-4">@negocio.Nombre</h3>
-                    <p class="card-text">Dirección: @negocio.Direccion</p>
-                    <p class="card-text">Rubro: @negocio.rubroNombre</p>
+                    <h4 class="card-title mt-3 fw-bold">@negocio.Nombre</h4>
+                    <p class="card-text mb-1"><strong>Dirección:</strong> @negocio.Direccion</p>
+                    <p class="card-text mb-3"><strong>Rubro:</strong> @negocio.rubroNombre</p>
 
-                    
-                    <div class="mt-4">
-                        <a asp-controller="Negocios" asp-action="UsuariosDeNegocio" asp-route-id="@negocio.IdNegocio" class="btn btn-primary">Usuarios vinculados</a>
+                    <div class="text-end">
+                        <button class="btn btn-outline-primary btn-usuarios-vinculados" data-id="@negocio.IdNegocio">
+                            <i class="bi bi-people-fill me-1"></i> Usuarios vinculados
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     }
+
+    <div class="modal fade modalUsuariosDeNegocio" id="modalUsuariosDeNegocio" tabindex="-1" aria-labelledby="modalUsuariosDeNegocioLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-3">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="UsuariosDeNegocioLabel">Usuarios vinculados con el negocio</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Lista de usuarios -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalConfirmarEliminacion" tabindex="-1" aria-labelledby="modalConfirmarEliminacionLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content rounded-3">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalConfirmarEliminacionLabel">Confirmar eliminación</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="mensajeConfirmacion"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sm btn-danger btn-eliminar-negocio" id="btnConfirmarEliminar">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
+<script src="/js/negocios.js"></script>

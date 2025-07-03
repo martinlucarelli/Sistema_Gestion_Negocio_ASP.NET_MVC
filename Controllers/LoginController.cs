@@ -65,7 +65,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));  
 
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("RegistrarVenta", "Venta");
             }
         }
 

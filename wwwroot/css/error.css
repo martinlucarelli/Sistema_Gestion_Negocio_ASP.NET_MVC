@@ -1,0 +1,31 @@
+﻿.error-container {
+    text-align: center;
+    padding: 30px;
+}
+
+.error-box {
+    background-color: white;
+    padding: 40px;
+    border-radius: 16px;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(103, 58, 183, 0.25);
+}
+
+.error-logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+.error-box h1 {
+    color: #673AB7;
+    font-size: 28px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.error-box p {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 25px;
+}

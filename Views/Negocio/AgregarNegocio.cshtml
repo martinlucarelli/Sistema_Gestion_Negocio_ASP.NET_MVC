@@ -5,27 +5,29 @@
 }
 
 
-
-<h1>AgregarNegocio</h1>
-
-
-<div>
-    
-    <p>Ingrese el correo del cliente y se le enviara un link para completar el registro de su usuario y de su negocio</p>
-
-</div>
-
-
-<form method="post" asp-action="AgregarNegocio" asp-controller="Negocio">
-
+<div class="card card-agregar-negocio">
     <div>
+        <h1 class="titulo-agregar-negocio">Agregar negocio</h1>
+    </div>
+    
 
-        <label for "email">Correo electronico del cliente</label>
-        <input  asp-for="correo" type="email" id="email"/>
-        <span asp-validation-for="correo" class="text-danger"></span>
-
-        <button type="submit">Enviar</button>
+    <div class="descripcion-agregar-negocio">
+        <p>Ingrese el correo del cliente y se le enviará un link para completar el registro de su usuario y de su negocio.</p>
     </div>
 
-</form>
+
+    <div class="card-body">
+        <form method="post" asp-action="AgregarNegocio" asp-controller="Negocio" class="form-agregar-negocio">
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo electrónico del cliente</label>
+                <input asp-for="correo" type="email" id="email" class="form-control" />
+                <span asp-validation-for="correo" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-success">Enviar</button>
+        </form>
+    </div>
+</div>
+
 

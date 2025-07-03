@@ -48,6 +48,12 @@
     margin-bottom: 0;
 }
 
+.btn-agregar-empleado{
+
+    margin-top: 20px;
+    border: none;
+    border-radius: 20px;
+}
 /* Wrapper de la sección de empleados */
 .card.card-empleados-wrapper {
     max-width: 1200px;

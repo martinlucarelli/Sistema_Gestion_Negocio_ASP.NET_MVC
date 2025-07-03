@@ -4,7 +4,7 @@ let chartProductos = null;
 let chartFormasDePago = null;
 
 document.addEventListener("DOMContentLoaded", function () {
-    cargarEstadisticas(3); // Valor por defecto: últimos 3 meses
+    cargarEstadisticas(100); // Valor por defecto: últimos 3 meses
 
     document.getElementById("btnContinuar").addEventListener("click", function () {
         const periodo = parseInt(document.getElementById("tiempoSelect").value);

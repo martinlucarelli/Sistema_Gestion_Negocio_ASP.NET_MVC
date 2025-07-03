@@ -33,15 +33,15 @@
 <div class="card card-empleados-wrapper">
 
     <h1 class="titulo-empleados mb-3 ms-2 px-4 py-2">Empleados</h1>
-
     <div>
 
-        <button class="btn btn-primary mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
-            Agregar empleado
+        <button class="btn-agregar-empleado btn btn-success mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
+            <i class="bi bi-plus-circle"></i> Agregar empleado
         </button>
-
+        
 
     </div>
+    <hr class="mb-4" />
 
     @if (TempData["SuccessMessage"] != null)
     {

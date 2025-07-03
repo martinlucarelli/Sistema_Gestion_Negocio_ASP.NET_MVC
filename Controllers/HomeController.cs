@@ -25,22 +25,11 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View();
         }
 
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Empleado")] //Acceden los 3 tipos de usuarios
-        public IActionResult EpleadoVista_Prueba()
-        {
-            return View();
-        }
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")] //Solo 2 usuarios tiene acceso
-        public IActionResult AdminNegocioVista_Prueba()
-        {
-            return View();
+        public IActionResult AccesoDenegado() 
+        { 
+            return View(); 
         }
 
-        [Authorize(Roles = "AdministradorGeneral")] //Solo un usuario tiene acceso
-        public IActionResult AdminGeneralVista_Prueba()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
