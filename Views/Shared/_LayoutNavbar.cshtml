@@ -30,7 +30,7 @@
             </div>
             
 
-            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado") || User.IsInRole("Invitado"))
             {
                 <a asp-area="" asp-controller="Venta" asp-action="RegistrarVenta"><i class="bi bi-cart-plus fs-4"></i> Registrar venta</a>
             }
@@ -40,13 +40,13 @@
             {
                 <a asp-area="" asp-controller="Negocio" asp-action="Negocios"><i class="bi bi-shop-window fs-4"></i> Negocios</a>
             }
-            @if (User.IsInRole("AdministradorNegocio"))
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Invitado"))
             {
                 <a asp-area="" asp-controller="Negocio" asp-action="MiNegocio"><i class="bi bi-shop-window fs-4"></i> Mi negocio</a>
             }
             
             
-            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado"))
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado") || User.IsInRole("Invitado"))
             {
                 <a asp-area="" asp-controller="Producto" asp-action="Productos"><i class="bi bi-tags fs-4"></i> Productos</a>
                 <a asp-area="" asp-controller="Venta" asp-action="Ventas"><i class="bi bi-currency-dollar fs-4"></i> Ventas</a>

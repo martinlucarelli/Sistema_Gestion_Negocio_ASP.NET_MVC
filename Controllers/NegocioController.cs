@@ -206,14 +206,14 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         public IActionResult AdminNegocioRegistradoConExito(){ return View();}
         public IActionResult NegocioRegistradoConExito() { return View(); }
 
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Invitado")]
         public IActionResult MiNegocio() 
         {
             string usuarioId = UsuarioHelper.ObtenerUsuarioId(HttpContext);
 
             var usuario = context.Usuarios.Include(u => u.Negocio).FirstOrDefault(u => u.IdUsuario.ToString() == usuarioId);
 
-            if(usuario==null || usuario.Rol != Rol.AdministradorNegocio)
+            if(usuario==null || (usuario.Rol != Rol.AdministradorNegocio && usuario.Rol != Rol.Invitado))
             {
                return Unauthorized(); 
             }
@@ -235,7 +235,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View(modelo); 
         }
 
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Invitado")]
         [HttpGet]
         public IActionResult EditarNegocio(string idNegocio)
         {
@@ -266,7 +266,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View(negocioModel);
         }
 
-        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio")]
+        [Authorize(Roles = "AdministradorGeneral,AdministradorNegocio,Invitado")]
         [HttpPost]
         public IActionResult EditarNegocio(string idNegocio, NegocioViewModel negocioEditar)
         {

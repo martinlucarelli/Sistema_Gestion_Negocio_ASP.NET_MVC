@@ -1,0 +1,32 @@
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels.InvitadoViewModel
+@{
+    ViewData["Title"] = "Registrar Invitado";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-container">
+    <div class="login-box">
+
+        <div class="img-container">
+            <img class="logo-login" src="~/img/NegociAppLogoNegro.png" />
+        </div>
+
+        <h2>Continuar como invitado</h2>
+
+        <form method="post" asp-action="RegistrarInvitado" asp-controller="Invitado">
+            <div class="form-group">
+                <label for="text">Tu nombre</label>
+                <input asp-for="nombre" type="text" id="email" />
+                <span  class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="text">Nombre de tu negocio</label>
+                <input asp-for="nombreNegocio" type="text" id="password" />
+            </div>
+
+            <button type="submit" class="btn-login">Continuar</button>
+        </form>
+    </div>
+</div>
+

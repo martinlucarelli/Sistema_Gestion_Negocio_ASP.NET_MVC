@@ -2,6 +2,7 @@ using Sistema_Gestion_Negocio_ASP.NET_MVC.Configuration;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Context;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +30,7 @@ builder.Services.AddScoped<BashClaveService>();
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(option =>
     {
-        option.LoginPath = "/Login/Login"; //Dirige al usuario al login si no esta autenticando (logueado)
+        option.LoginPath = "/Invitado/Inicio"; //Dirige al usuario al login si no esta autenticando (logueado)
         option.ExpireTimeSpan = TimeSpan.FromMinutes(300); //La cookie dura 5 horas, luego se vence y por lo tanto se cierra sesion
         option.SlidingExpiration= true; //Si el usuario sigue activo el tiempo de la cookie se renueva
         option.AccessDeniedPath= "/Home/AccesoDenegado"; //Si el usuario no tiene acceso a alguna vista lo dirige a privacy.
@@ -60,8 +61,12 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
+// Middleware evitar cache 
+
+app.UseMiddleware<EliminarCacheMiddleware>();
+
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Login}/{action=Login}/{id?}");
+    pattern: "{controller=Invitado}/{action=Inicio}/{id?}");
 
 app.Run();

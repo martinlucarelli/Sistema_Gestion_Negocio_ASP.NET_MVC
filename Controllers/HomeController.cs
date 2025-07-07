@@ -15,10 +15,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+
 
         public IActionResult Privacy()
         {
@@ -29,6 +26,8 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         { 
             return View(); 
         }
+
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -12,7 +12,7 @@
 
     <div class="card shadow">
 
-        @if (User.IsInRole("AdministradorNegocio"))
+        @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Invitado"))
         {
             <div class="d-flex justify-content-start mb-3">
                 <button class="btn-agregar-producto " data-bs-toggle="modal" data-bs-target="#modalAgregarProducto">
@@ -38,7 +38,7 @@
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Stock</th>
-                        @if (User.IsInRole("AdministradorNegocio"))
+                        @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Invitado"))
                         {
                             <th>Acciones</th>
                         }
@@ -143,6 +143,10 @@
 
 <script>
     const esAdminNegocio = @(User.IsInRole("AdministradorNegocio").ToString().ToLower());
+</script>
+
+<script>
+    const esInvitado = @(User.IsInRole("Invitado").ToString().ToLower());
 </script>
 
 

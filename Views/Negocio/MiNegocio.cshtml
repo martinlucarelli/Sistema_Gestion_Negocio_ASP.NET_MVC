@@ -35,9 +35,22 @@
     <h1 class="titulo-empleados mb-3 ms-2 px-4 py-2">Empleados</h1>
     <div>
 
-        <button class="btn-agregar-empleado btn btn-success mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
-            <i class="bi bi-plus-circle"></i> Agregar empleado
-        </button>
+        @if (User.IsInRole("AdministradorNegocio"))
+        {
+            <button class="btn-agregar-empleado btn btn-success mb-3 ms-2 px-4 py-2 rounded" style="width: auto;" data-bs-toggle="modal" data-bs-target="#modalAgregarEmpleado">
+                <i class="bi bi-plus-circle"></i> Agregar empleado
+            </button>
+        }
+        @if(User.IsInRole("Invitado"))
+        {
+            <div style="display: inline-block;" data-bs-toggle="tooltip" data-bs-placement="top" title="Como invitado no tenés acceso a esta función">
+                <button disabled class="btn-agregar-empleado btn btn-success mb-3 ms-2 px-4 py-2 rounded" style="width: auto;">
+                    <i class="bi bi-plus-circle"></i> Agregar empleado
+                </button>
+            </div>
+        }
+
+
         
 
     </div>
@@ -66,17 +79,18 @@
 
                             <div class="position-absolute top-0 end-0 p-2">
 
-                                <button title="Cambiar nombre" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.Correo">
+                                <button title="Cambiar nombre" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalCambiarNombreEmpleado" data-correo="@empleado.IdUsuario">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
 
-                                <button title="Eliminar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.Correo" data-nombre="@empleado.Nombre">
+                                <button title="Eliminar" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminarEmpleado" data-correo="@empleado.IdUsuario" data-nombre="@empleado.Nombre">
                                     <i class="bi bi-trash-fill"></i>
                                 </button>
                             </div>
 
                             <h3 class="card-title mt-4">@empleado.Nombre</h3>
                             <p class="card-text">Correo: @empleado.Correo</p>
+                            
                         </div>
                     </div>
                 </div>
@@ -150,7 +164,7 @@
                 var button = event.relatedTarget;
                 var correo = button.getAttribute('data-correo');
 
-                var inputCorreo = modalCambiarNombre.querySelector('#correoEmpleado');
+                var inputCorreo = modalCambiarNombre.querySelector('#idEmpleado');
                 inputCorreo.value = correo;
             });
         </script>
@@ -163,7 +177,7 @@
                 var correo = button.getAttribute('data-correo');
                 var nombre = button.getAttribute('data-nombre');
 
-                var inputCorreo = modalEliminarEmpleado.querySelector('#correoEmpleado');
+                var inputCorreo = modalEliminarEmpleado.querySelector('#idEmpleado');
                 inputCorreo.value = correo;
 
                 var textoConfirmacion = modalEliminarEmpleado.querySelector('#textoConfirmacion');
@@ -173,6 +187,15 @@
             });
         </script>
 
+        <script>
+
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl, {
+                    delay: { "show": 100, "hide": 100 } // Mostrarse rápido
+                });
+            });
+        </script>
 
     }
 

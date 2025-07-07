@@ -5,7 +5,8 @@
         {
             AdministradorGeneral =1,
             AdministradorNegocio=2,
-            Empleado=3
+            Empleado=3,
+            Invitado= 4
 
 
         }

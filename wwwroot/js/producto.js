@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () //El contentLoaded se 
 
 //Esta funcion se fija si el usuario es admin o no, se utiliza dentro de cargarProductos para que le oculte las columnas de modificar o elimiinar producto a los empleados
 function OcultarColumnaAEmpleados() {
-    if (!esAdminNegocio) {
+    if (!esAdminNegocio && !esInvitado) {
         const columnasAcciones = document.querySelectorAll("td:nth-child(5), th:nth-child(5)");
         columnasAcciones.forEach(celda => {
             celda.style.display = "none";

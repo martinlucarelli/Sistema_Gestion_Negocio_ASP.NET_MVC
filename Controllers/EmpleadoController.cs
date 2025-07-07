@@ -106,9 +106,9 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         public IActionResult EmpleadoRegistradoConExito() { return View(); }
 
         [HttpPost]
-        public IActionResult CambiarNombreEmpleado(string correo,string nuevoNombre) 
+        public IActionResult CambiarNombreEmpleado(Guid id,string nuevoNombre) 
         {
-            var usuarioEditar = context.Usuarios.FirstOrDefault(u => u.Correo == correo);
+            var usuarioEditar = context.Usuarios.FirstOrDefault(u => u.IdUsuario == id);
 
             if(usuarioEditar == null) { return NotFound(); }
 
@@ -120,9 +120,9 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult EliminarEmpleado(string correo)
+        public IActionResult EliminarEmpleado(Guid id)
         {
-            var usuarioEliminar = context.Usuarios.FirstOrDefault(u=> u.Correo== correo);
+            var usuarioEliminar = context.Usuarios.FirstOrDefault(u=> u.IdUsuario== id);
 
             if(usuarioEliminar == null) { return NotFound(); }
 

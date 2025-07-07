@@ -9,6 +9,11 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
 
         public string ConvertirSha256(string texto)
         {
+            if(texto == null)
+            {
+                return " ";
+            }
+
             StringBuilder Sb = new StringBuilder();
             using (SHA256 hash = SHA256.Create())
             {

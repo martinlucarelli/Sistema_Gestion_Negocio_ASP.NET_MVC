@@ -150,7 +150,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            return RedirectToAction("Login", "Login");
+            return RedirectToAction("Inicio", "Invitado");
 
         }
 
