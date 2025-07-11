@@ -52,8 +52,18 @@
                 <a asp-area="" asp-controller="Venta" asp-action="Ventas"><i class="bi bi-currency-dollar fs-4"></i> Ventas</a>
                 <a asp-area="" asp-controller="Estadisticas" asp-action="mostrarEstadisticas"><i class="bi bi-graph-up fs-4"></i> Estadísticas</a>
             }
-           
-            <a class="cerrar-sesion" asp-area="" asp-controller="Login" asp-action="CerrarSesion"><i class="bi bi-box-arrow-right fs-4"></i> Cerrar sesión</a>
+          
+            @if (User.IsInRole("AdministradorNegocio") || User.IsInRole("Empleado") || User.IsInRole("AdministradorGeneral"))
+            {
+                <a class="cerrar-sesion" asp-area="" asp-controller="Login" asp-action="CerrarSesion"><i class="bi bi-box-arrow-right fs-4"></i> Cerrar sesión</a>
+            }
+
+            @if (User.IsInRole("Invitado"))
+            {
+                <a class="cerrar-sesion" asp-area="" asp-controller="Invitado" asp-action="CerrarSesionInvitado"><i class="bi bi-box-arrow-right fs-4"></i> Cerrar sesióna</a>
+            }
+
+
         </nav>
 
         <!-- Contenido principal y footer -->
@@ -69,13 +79,6 @@
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-
-            <footer class="border-top footer text-muted">
-                <div class="container">
-                    &copy; 2025 - Sistema_Gestion_Negocio_ASP.NET_MVC -
-                    <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </div>
-            </footer>
         </div>
     </div>
 

@@ -61,8 +61,7 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-// Middleware evitar cache 
-
+// Middleware evitar cache.
 app.UseMiddleware<EliminarCacheMiddleware>();
 
 app.MapControllerRoute(

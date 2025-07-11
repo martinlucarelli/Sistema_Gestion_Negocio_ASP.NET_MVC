@@ -39,7 +39,16 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(UsuarioViewModel user)
         {
-          
+
+            if (User.Identity.IsAuthenticated)
+            {
+                // Ya hay alguien logueado, no debería volver al login.
+                TempData["Error"] = "Ya hay una sesión activa. Cerrá sesión antes de iniciar con otra cuenta.";
+                return RedirectToAction("SesionActiva", "Home");
+            }
+
+
+
             var usuarioIngresado = context.Usuarios.FirstOrDefault(u => u.Correo == user.correo);
           
             if(usuarioIngresado==null || usuarioIngresado.Clave != bashClaveService.ConvertirSha256(user.clave)) 

@@ -1,10 +1,115 @@
 ﻿
 @{
     ViewData["Title"] = "Inicio";
-    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    Layout = "~/Views/Shared/_LayoutInicio.cshtml";
 }
 
-<h1>Inicio</h1>
+<div class="page-wrapper">
+    <header class="landing-header">
+        <div class="container-header">
+            <img src="~/img/NegociAppLogoTransparente.png" alt="Logo" class="logo">
+            <nav>
+                <a asp-controller="Login" asp-action="Login" class="nav-link">Iniciar sesión</a>
 
-<a asp-controller="Invitado" asp-action="RegistrarInvitado" >Continuar como invitado</a>
-<a asp-controller="Login" asp-action="Login">Iniciar sesion</a>
+            </nav>
+        </div>
+    </header>
+
+
+
+
+    <section class="hero text-white text-center">
+        <div class="container py-5">
+            <h1 class="display-4">Gestión de ventas sencilla y poderosa</h1>
+            <p class="lead mt-3">NegociApp te permite administrar tu negocio de forma eficiente, sin complicaciones.</p>
+            <a asp-controller="Invitado" asp-action="RegistrarInvitado" class="btn-invitado">Probar gratis</a>
+        </div>
+    </section>
+
+    <section class="features bg-light text-center">
+        <div class="container">
+            <h2 class="mb-5">¿Qué ofrece NegociApp?</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="bi bi-box-seam feature-icon"></i>
+                    <h5 class="mt-3">Gestión de stock</h5>
+                    <p>Control total de productos, precios y existencias.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="bi bi-receipt-cutoff feature-icon"></i>
+                    <h5 class="mt-3">Registrar ventas</h5>
+                    <p>Control de ventas realizadas de forma rápida y sencilla.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="bi bi-bar-chart-fill feature-icon"></i>
+                    <h5 class="mt-3">Estadísticas claras</h5>
+                    <p>Visualizá el rendimiento de tu negocio en tiempo real.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="preview py-5 bg-light text-center">
+        <div class="container">
+            <h2 class="mb-4">Mirá cómo funciona</h2>
+
+            <div class="carousel-container">
+                <div class="carousel-slide active">
+                    <img src="~/img/FotoRegVent.png" alt="Vista previa 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="~/img/FotoProd.png" alt="Vista previa 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="~/img/FotoVent.png" alt="Vista previa 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="~/img/FotoNeg.png" alt="Vista previa 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="~/img/FotoEst.png" alt="Vista previa 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="~/img/FotoEst2.png" alt="Vista previa 3">
+                </div>
+
+
+                <button class="carousel-prev">&#10094;</button>
+                <button class="carousel-next">&#10095;</button>
+            </div>
+
+
+
+        </div>
+    </section>
+
+
+</div>
+
+
+
+<footer class="landing-footer text-white py-4">
+    <div class="container-footer">
+        <p class="footer-title">NegociApp — Solución para PyMEs</p>
+
+        <div class="social-icons">
+            <a href="https://github.com/martinlucarelli" target="_blank" title="GitHub">
+                <i class="bi bi-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/martin-lucarelli-381988311" target="_blank" title="LinkedIn">
+                <i class="bi bi-linkedin"></i>
+            </a>
+            <a href="mailto:martin.lucarelli94@gmail.com" target="_blank" title="Email">
+                <i class="bi bi-envelope-fill"></i>
+            </a>
+        </div>
+
+        <p class="developer-text">Desarrollado por <strong>Martín Julián Lucarelli</strong> · © 2025</p>
+        <small class="version-text">Versión 1.0.0 · ASP.NET Core MVC · SQL Server</small>
+    </div>
+</footer>
+
+
+
+
+<script src="~/js/inicio.js"></script>

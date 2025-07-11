@@ -28,9 +28,5 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
             }
             return Sb.ToString();
         }
-
-
-
-
     }
 }

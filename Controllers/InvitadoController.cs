@@ -6,6 +6,7 @@ using Sistema_Gestion_Negocio_ASP.NET_MVC.Models;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Models.ViewModels;
 using Sistema_Gestion_Negocio_ASP.NET_MVC.Services;
 using System.Security.Claims;
+using Sistema_Gestion_Negocio_ASP.NET_MVC.Helper;
 
 namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 {
@@ -14,11 +15,13 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
         NegocioContext context;
         public ILogger<InvitadoController> logger;
+        public INegocioApiService negocioApiService;
         
-        public InvitadoController(NegocioContext _context, ILogger<InvitadoController> _logger)
+        public InvitadoController(NegocioContext _context, ILogger<InvitadoController> _logger,INegocioApiService _negocioApiService)
         {
             context = _context;
             logger = _logger;
+            negocioApiService = _negocioApiService;
 
         }
 
@@ -37,6 +40,12 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
         [HttpPost]
         public async Task< IActionResult> RegistrarInvitado(InvitadoViewModel invitado)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
+
             var negocio = new Negocio
             {
                 Nombre = invitado.nombreNegocio,
@@ -85,12 +94,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             context.Usuarios.AddRange(usuarios);
 
             await context.SaveChangesAsync();
-           
-
-            
-            
-            
-            
+          
             var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.NameIdentifier,usuario.IdUsuario.ToString()),
@@ -109,5 +113,27 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
  
         
         }
+
+        public async Task<IActionResult> CerrarSesionInvitado()
+        {
+            if(User.IsInRole("Invitado"))
+            {
+                var idNegocioUsuario = UsuarioHelper.ObtenerNegocioIdDelUsuario(HttpContext);
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await negocioApiService.EliminarNegocio(Guid.Parse(idNegocioUsuario));
+
+                return RedirectToAction("Inicio", "Invitado");
+            }
+            else
+            {
+                return RedirectToAction("Error01", "Home");
+            }
+            
+
+
+        }
+
+
     }
 }

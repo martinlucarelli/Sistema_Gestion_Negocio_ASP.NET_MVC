@@ -17,12 +17,13 @@
             <div class="form-group">
                 <label for="text">Tu nombre</label>
                 <input asp-for="nombre" type="text" id="email" />
-                <span  class="text-danger"></span>
+                <span asp-validation-for="nombre" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label for="text">Nombre de tu negocio</label>
                 <input asp-for="nombreNegocio" type="text" id="password" />
+                <span asp-validation-for="nombreNegocio" class="text-danger"></span>
             </div>
 
             <button type="submit" class="btn-login">Continuar</button>

@@ -27,6 +27,16 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
             return View(); 
         }
 
+        public IActionResult Error01()
+        {
+            return View();
+        }
+
+        public IActionResult SesionActiva()
+        {
+            return View();
+        }
+
 
 
 

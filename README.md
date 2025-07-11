@@ -149,7 +149,6 @@ posibilidad de que inicien sesion los usuarios.
 - [X] Mostrar lista de ventas, posibilidad de imprimir el detalle de una venta (tipo facutra).
 - [X] Mostrar lista de ventas especificando entre que fechas mostrar la lista, por defecto debe estar en el dia actual,pero se puede
 cambiar las fechas con un calendario.
-- [ ] Descargar en formato xls la tabla con las ventas.
 - [X] API REST para actualizar el DOM sin recargar la página
 - [X] Estadísticas con gráficos
 
