@@ -23,6 +23,11 @@
 </head>
 <body>
     <div class="navBarContainer">
+
+        <button class="toggle-sidebar" onclick="toggleSidebar()">
+            <i class="bi bi-list"></i>
+        </button>
+
         <!-- Sidebar -->
         <nav class="sidebar">
             <div class="logoContainer">
@@ -86,5 +91,23 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+
+
+    <script>
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        }
+
+        // Cerrar sidebar al hacer clic en un link (solo en celular)
+        document.querySelectorAll('.sidebar a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    document.querySelector('.sidebar').classList.remove('active');
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

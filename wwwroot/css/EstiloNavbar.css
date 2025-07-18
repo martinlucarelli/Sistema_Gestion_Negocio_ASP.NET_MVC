@@ -14,6 +14,16 @@ body, html {
     overflow-x: hidden;
 }
 
+
+.titulo-seccion {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #673AB7;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #673AB7;
+    padding-bottom: 5px;
+}
+
 .navBarContainer {
     display: flex;
     height: 100vh;
@@ -100,6 +110,44 @@ main {
 }
 
 
-footer {
-    margin-top: auto;
+
+.toggle-sidebar {
+    display: none;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #673AB7;
+    z-index: 9999;
+}
+
+@media screen and (max-width: 768px) {
+    .toggle-sidebar {
+        display: block;
+    }
+
+    .navBarContainer {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 250px;
+        height: 100vh;
+        background-color: #673AB7;
+        transition: left 0.3s ease;
+        z-index: 999;
+    }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+    .main-content {
+        padding: 20px;
+    }
 }
