@@ -1,4 +1,4 @@
-﻿
+﻿@model Sistema_Gestion_Negocio_ASP.NET_MVC.Models.DTO.ProductoDTO
 @{
     ViewData["Title"] = "Productos";
     Layout = "~/Views/Shared/_LayoutNavbar.cshtml";
@@ -70,6 +70,7 @@
                         <div class="mb-3">
                             <label for="precio" class="form-label">Precio</label>
                             <input type="number" class="form-control" id="precio" required />
+                            <span asp-validation-for="Precio" class="text-danger"></span>
                         </div>
                         <div class="mb-3">
                             <label for="stock" class="form-label">Stock</label>

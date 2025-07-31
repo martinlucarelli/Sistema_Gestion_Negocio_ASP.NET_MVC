@@ -108,7 +108,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(data => {
                 console.log("Producto agregado:", data);
-                // Acá podés cerrar el modal
+                
                 const modal = bootstrap.Modal.getInstance(document.getElementById("modalAgregarProducto"));
                 modal.hide();
 
