@@ -29,11 +29,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
         }
         public async Task EliminarNegocio(Guid IdNegocio)
         {
-            // 1. ELIMINAR DETALLES DE VENTAS RELACIONADOS A NEGOCIO
-            // 2. ELIMINAR VENTAS RELACIONADAS AL NEGOCIO
-            // 3. ELIMINAR PRODUCTOS RELACIONADOS AL NEGOCIO
-            // 4. ELIMINAR USUARIOS RELACIONADOS AL NEGOCIO
-            // 5. ELIMINAR NEGOCIO
+
 
             var ventas = await context.Ventas.Where(v => v.NegocioId == IdNegocio).ToListAsync();
 

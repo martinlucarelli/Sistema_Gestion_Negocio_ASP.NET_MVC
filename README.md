@@ -20,18 +20,6 @@ Diseñada para ser utilizada por múltiples empresas con un único sistema, mediant
 - [En desarrollo](#en-desarrollo)
 - [Autor](#autor)
 
-## PROXIMO A HACER:
-
-- Achicar el panel de registrar venta y mejorar estilos
-- Mejorar el estilo de las vistas en general (agregarle color de la aplicacion, bordes, tamaños)
-- Agregar en la parte superior derecha, de todas las vistas (en el shared) informacion del usuario en sesion.
-- Colocar una vista al iniciar la aplicacion, esta vista debe contner el nombre del sistema, alguna imagen, informacion y la
-posibilidad de que inicien sesion los usuarios.
-- Permitir que se registre un negocio desde la vista principal.
-
-
-
-
 
 ## Tecnologías utilizadas
 

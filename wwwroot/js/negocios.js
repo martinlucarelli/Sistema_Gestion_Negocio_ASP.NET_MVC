@@ -85,7 +85,7 @@ document.getElementById("btnConfirmarEliminar").addEventListener("click", functi
     })
         .then(res => {
             if (!res.ok) throw new Error("Error al eliminar el negocio");
-            location.reload(); // o remover del DOM si querés hacerlo más fluido
+            location.reload();
         })
         .catch(err => {
             console.error("Error:", err);

@@ -2,7 +2,7 @@
 
 
 
-/* Título sección NEGOCIO */
+
 .titulo-negocio {
     background-color: #673AB7;
     color: white;
@@ -13,7 +13,7 @@
     margin-bottom: 0;
 }
 
-/* Contenedor general de la card del negocio */
+
 .card.card-negocio {
     max-width: 1200px;
     margin: 40px auto;
@@ -21,7 +21,7 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Card interna con los detalles del negocio */
+
 .card.card-negocio-detalle {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -31,13 +31,13 @@
         box-shadow: 0 6px 18px rgba(103, 58, 183, 0.25);
     }
 
-/* Estilo para el contenido de la card del negocio */
+
 .card-body.card-body-negocio h3 {
     font-size: 1.4rem;
     color: #673AB7;
 }
 
-/* Sección EMPLEADOS */
+
 .titulo-empleados {
     background-color: #673AB7;
     color: white;
@@ -54,7 +54,7 @@
     border: none;
     border-radius: 20px;
 }
-/* Wrapper de la sección de empleados */
+
 .card.card-empleados-wrapper {
     max-width: 1200px;
     margin: 0 auto 40px auto;
@@ -71,13 +71,13 @@
         font-weight:700;
     }
 
-/* Contenedor del grid de empleados con padding */
+
 .card-body.card-empleados-body {
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-/* Card individual de empleado */
+
 .card-empleado {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border-radius: 8px;

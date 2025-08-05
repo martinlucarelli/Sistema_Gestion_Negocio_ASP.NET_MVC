@@ -144,7 +144,7 @@ document.getElementById("btnConfirmarEliminar").addEventListener("click", functi
         })
             .then(res => {
                 if (!res.ok) throw new Error("Error al eliminar el producto");
-                return res.text(); // o .json() si devolvés algo
+                return res.text(); 
             })
             .then(() => {
                 console.log("Producto eliminado");

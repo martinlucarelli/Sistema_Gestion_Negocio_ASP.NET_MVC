@@ -42,7 +42,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                // Ya hay alguien logueado, no debería volver al login.
+                
                 TempData["Error"] = "Ya hay una sesión activa. Cerrá sesión antes de iniciar con otra cuenta.";
                 return RedirectToAction("SesionActiva", "Home");
             }

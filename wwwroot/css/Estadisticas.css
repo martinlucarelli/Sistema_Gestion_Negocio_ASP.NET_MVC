@@ -1,4 +1,4 @@
-﻿/* Estilo del select */
+﻿
 .filtro-select {
     max-width: 240px;
     min-height: 42px;
@@ -7,7 +7,7 @@
     box-shadow: 0 2px 5px rgba(103, 58, 183, 0.1);
 }
 
-/* Botón Continuar personalizado */
+
 .btn-filtrar {
     background-color: #673AB7;
     color: white;
@@ -23,7 +23,6 @@
         opacity: 0.95;
     }
 
-/* Color violeta para los headers de las cards de gráficos */
 .card .card-header {
     background-color: #ede7f6;
     color: #4a148c;
@@ -31,7 +30,7 @@
     border-bottom: 1px solid #d1c4e9;
 }
 
-/* Para que los selects y botones se alineen bien */
+
 .estadisticas-header {
     margin-bottom: 30px;
 }

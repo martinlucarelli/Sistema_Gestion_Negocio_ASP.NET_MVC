@@ -137,7 +137,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Services
 
                 listaVentasPorPeriodo = diasSemana.Select(d => new ItemGrafico
                 {
-                    Periodo = d.ToString("dddd"), // "lunes", "martes"
+                    Periodo = d.ToString("dddd"),
                     Valor = ventas.Count(v => v.Fecha.Date == d.Date)
                 }).ToList();
 

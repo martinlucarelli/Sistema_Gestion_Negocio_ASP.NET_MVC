@@ -67,7 +67,7 @@ namespace Sistema_Gestion_Negocio_ASP.NET_MVC.Controllers
 
             await context.SaveChangesAsync();
 
-            //AGREGAR 5 PRODUCTOS
+            
 
             List<Producto> productos = new List<Producto>()
             {

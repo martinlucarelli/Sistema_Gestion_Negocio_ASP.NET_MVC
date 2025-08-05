@@ -1,24 +1,24 @@
-﻿/* Contenedor principal centrado */
+﻿
 .editar-negocio-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 70vh; /* Ajusta según prefieras */
+    min-height: 70vh; 
     padding: 20px;
-    background-color: #f8f9fa; /* Fondo claro neutro */
+    background-color: #f8f9fa; 
 }
 
-/* Caja blanca con sombra */
+
 .editar-negocio-box {
     background-color: white;
     padding: 30px 40px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(103, 58, 183, 0.2); /* sombra violeta suave */
+    box-shadow: 0 4px 15px rgba(103, 58, 183, 0.2); 
     max-width: 400px;
     width: 100%;
 }
 
-    /* Título del formulario */
+
     .editar-negocio-box h2 {
         text-align: center;
         color: #673AB7;
@@ -26,7 +26,7 @@
         font-weight: 700;
     }
 
-/* Estilo general para los labels */
+
 .form-group label {
     display: block;
     font-weight: 600;
@@ -34,7 +34,7 @@
     color: #444;
 }
 
-/* Inputs y select estilo Bootstrap-like pero más personalizado */
+
 .form-group input[type="text"],
 .form-group select {
     width: 100%;
@@ -52,13 +52,13 @@
         box-shadow: 0 0 5px rgba(103, 58, 183, 0.5);
     }
 
-/* Mensajes de error */
+
 .text-danger {
     font-size: 0.875rem;
     margin-top: 4px;
 }
 
-/* Botón principal */
+
 .editar-negocio-btn-continuar {
     display: block;
     width: 100%;
